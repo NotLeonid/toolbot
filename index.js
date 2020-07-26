@@ -4,8 +4,8 @@ const Canvas = require('canvas');
 const bot = new Discord.Client();
 const client = new Discord.Client();
 const fs = require('fs');
-bot.login("NzM1NzMzNTQ0NzMwNDkyOTU4.XxkjQg.MpENYc2Cgqb0OQjXYGjF68RuEzc");
-client.login("NzM1NzMzNTQ0NzMwNDkyOTU4.XxkjQg.MpENYc2Cgqb0OQjXYGjF68RuEzc");
+bot.login(process.env.TOKEN);
+client.login(process.env.TOKEN);
 // process.env.TOKEN
 const applyText = (canvas, text) => {
 	const ctx = canvas.getContext('2d');
