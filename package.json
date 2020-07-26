@@ -1,11 +1,12 @@
 {
   "name": "toolbot",
+  "description": "Discord bot",
   "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
+  "engines": {
+    "node": "12.x"
+  }
+},
+  "author": "KimPlayz4LK#1055",
   "license": "ISC",
   "dependencies": {
     "canvas": "^2.6.1",
