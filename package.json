@@ -3,8 +3,8 @@
   "description": "Discord bot",
   "version": "1.0.0",
   "engines": {
-    "node": "12.x"
-  }
+    "node": "12.x",
+  },
 },{
   "author": "KimPlayz4LK#1055",
   "license": "ISC",
