@@ -1,26 +1,26 @@
 {
   "name": "toolbot",
-  "description": "Discord bot",
   "version": "1.0.0",
-  "engines": {
-    "node": "12.x"}
-}
-{
-  "author": "KimPlayz4LK#1055",
-  "license": "ISC",
+  "description": "",
+  "main": "index.js",
   "dependencies": {
     "canvas": "^2.6.1",
     "discord-bot-maker": "^0.2.2",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0"
   },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/KimPlayz4LK/toolbot.git"
   },
+  "author": "",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/KimPlayz4LK/toolbot/issues"
   },
-  "homepage": "https://github.com/KimPlayz4LK/toolbot#readme",
-  "description": ""
+  "homepage": "https://github.com/KimPlayz4LK/toolbot#readme"
 }
