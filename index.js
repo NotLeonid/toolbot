@@ -1,11 +1,11 @@
 const {welcome, purge, kick, ban, status, say, mute} = require("discord-bot-maker");
 const Discord = require("discord.js");
-//const Canvas = require('canvas');
+const Canvas = require('canvas');
 const bot = new Discord.Client();
 const client = new Discord.Client();
 const fs = require('fs');
-bot.login(process.env.TOKEN);
-client.login(process.env.TOKEN);
+bot.login("NzM1NzMzNTQ0NzMwNDkyOTU4.XxkjQg.a43qi9E_h5sBLTm3Rz13dJSqb9A");
+client.login("NzM1NzMzNTQ0NzMwNDkyOTU4.XxkjQg.a43qi9E_h5sBLTm3Rz13dJSqb9A");
 // process.env.TOKEN
 const applyText = (canvas, text) => {
 	const ctx = canvas.getContext('2d');
@@ -36,11 +36,12 @@ bot.on('message', msg => {
     msg.channel.send('Pong!');
   }
 });
-bot.on('message', async message => {
-if (message.content.startsWith("!!time") === true){
+
+client.on('message', async message => {
+if (message.content.startsWith("time") === true){
 var today = new Date();
 var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-message.reply("the current time is "+ time);
+message.reply(time);
 }
 });
 bot.on('message', message => {
@@ -94,7 +95,7 @@ const exampleEmbed = new Discord.MessageEmbed()
 	.setThumbnail('https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF')
 	.addFields(
 		{ name: 'Fun', value: 'fruits, thumbs, ping (no prefix), random'},
-		{ name: 'Info & Tools', value: 'serverinfo, myinfo, membercount, find, cmds, help, value, write, invite, time'},
+		{ name: 'Info & Tools', value: 'serverinfo, myinfo, membercount, find, cmds, help, value, write, invite'},
     { name: 'Moderation', value: 'kick, ban, superduperkick (same as kick)',},
     { name: 'Under developement', value: 'mute, play',}
 	)
@@ -121,7 +122,7 @@ message.channel.send(exampleEmbed);
         { name: '!!value', value: 'Displays the value in the saved file'},
         { name: '!!write <new text/value>', value: 'Writes a new value to the saved file'},
         { name: '!!invite', value: 'Gives you an invite link for this bot'},
-        { name: '!!time', value: 'Displays the current time, in your format'},
+        { name: '!!time', value: 'Displays the current time in UTC format'},
         { name: '!!kick <mention>', value: 'Kicks a member from the server'},
         { name: '!!ban <mention>', value: 'Bans a member from the server'},
         { name: '!!superduperkick <mention>', value: "Same function as 'kick' but sounds more cool"},
@@ -169,8 +170,6 @@ bot.on('message', message => {
   message.channel.send({files: [file]});
 }});
 
-/*
-
 client.on('guildMemberAdd', async member => {
 	const channel = member.guild.channels.cache.find(ch => ch.name === 'public-chat');
 	if (!channel) return;
@@ -210,9 +209,6 @@ client.on('message', message => {
 		client.emit('guildMemberAdd', message.member);
 	}
 });
-
-*/
-
 bot.on('message', message => {
 if (message.content === '!!thumbs') {
 message.react('👍');
