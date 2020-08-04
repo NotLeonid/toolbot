@@ -37,8 +37,8 @@ bot.on('message', msg => {
   }
 });
 
-client.on('message', async message => {
-if (message.content.startsWith("time") === true){
+bot.on('message', message => {
+if (message.content.startsWith("!!time") === true){
 var today = new Date();
 var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 message.reply(time);
@@ -95,7 +95,7 @@ const exampleEmbed = new Discord.MessageEmbed()
 	.setThumbnail('https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF')
 	.addFields(
 		{ name: 'Fun', value: 'fruits, thumbs, ping (no prefix), random'},
-		{ name: 'Info & Tools', value: 'serverinfo, myinfo, membercount, find, cmds, help, value, write, invite'},
+		{ name: 'Info & Tools', value: 'serverinfo, myinfo, membercount, find, cmds, help, value, write, invite, time'},
     { name: 'Moderation', value: 'kick, ban, superduperkick (same as kick)',},
     { name: 'Under developement', value: 'mute, play',}
 	)
