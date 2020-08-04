@@ -1,6 +1,6 @@
 const {welcome, purge, kick, ban, status, say, mute} = require("discord-bot-maker");
 const Discord = require("discord.js");
-//const Canvas = require('canvas');
+const Canvas = require('canvas');
 const Keyv = require('keyv');
 const keyv = new Keyv('sqlite://database.sqlite');
 const bot = new Discord.Client();
