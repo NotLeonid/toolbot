@@ -36,6 +36,13 @@ bot.on('message', msg => {
     msg.channel.send('Pong!');
   }
 });
+bot.on('message', async message => {
+if (message.content.startsWith("!!time") === true){
+var today = new Date();
+var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+message.reply("the current time is "+ time);
+}
+});
 bot.on('message', message => {
 	if (message.content === '!!value') {
     fs.readFile("value.txt", function(err, buf) {message.channel.send("The current value is:\n_" + buf + "_");});
@@ -87,7 +94,7 @@ const exampleEmbed = new Discord.MessageEmbed()
 	.setThumbnail('https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF')
 	.addFields(
 		{ name: 'Fun', value: 'fruits, thumbs, ping (no prefix), random'},
-		{ name: 'Info & Tools', value: 'serverinfo, myinfo, membercount, find, cmds, help, value, write, invite'},
+		{ name: 'Info & Tools', value: 'serverinfo, myinfo, membercount, find, cmds, help, value, write, invite, time'},
     { name: 'Moderation', value: 'kick, ban, superduperkick (same as kick)',},
     { name: 'Under developement', value: 'mute, play',}
 	)
@@ -114,6 +121,7 @@ message.channel.send(exampleEmbed);
         { name: '!!value', value: 'Displays the value in the saved file'},
         { name: '!!write <new text/value>', value: 'Writes a new value to the saved file'},
         { name: '!!invite', value: 'Gives you an invite link for this bot'},
+        { name: '!!time', value: 'Displays the current time, in your format'},
         { name: '!!kick <mention>', value: 'Kicks a member from the server'},
         { name: '!!ban <mention>', value: 'Bans a member from the server'},
         { name: '!!superduperkick <mention>', value: "Same function as 'kick' but sounds more cool"},
