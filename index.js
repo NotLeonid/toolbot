@@ -1,6 +1,6 @@
 const {welcome, purge, kick, ban, status, say, mute} = require("discord-bot-maker");
 const Discord = require("discord.js");
-const Canvas = require('canvas');
+//const Canvas = require('canvas');
 const Keyv = require('keyv');
 const keyv = new Keyv('sqlite://database.sqlite');
 const bot = new Discord.Client();
@@ -189,7 +189,7 @@ bot.on('message', message => {
   var file = new Discord.MessageAttachment(message.content.substring(7,message.content.length));
   message.channel.send({files: [file]});
 }});
-
+/*
 client.on('guildMemberAdd', async member => {
 	const channel = member.guild.channels.cache.find(ch => ch.name === 'public-chat');
 	if (!channel) return;
@@ -229,6 +229,7 @@ client.on('message', message => {
 		client.emit('guildMemberAdd', message.member);
 	}
 });
+*/
 bot.on('message', message => {
 if (message.content === '!!thumbs') {
 message.react('👍');
