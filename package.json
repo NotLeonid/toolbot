@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "@keyv/sqlite": "^2.0.2",
     "discord-bot-maker": "^0.2.2",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
+    "keyv": "^4.0.1",
     "node-gyp": "^7.0.0",
     "node-pre-gyp": "^0.15.0"
   },
