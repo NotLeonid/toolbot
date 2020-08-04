@@ -1,6 +1,6 @@
 const {welcome, purge, kick, ban, status, say, mute} = require("discord-bot-maker");
 const Discord = require("discord.js");
-//const Canvas = require('canvas');
+const Canvas = require('canvas');
 const Keyv = require('keyv');
 const keyv = new Keyv('sqlite://database.sqlite');
 const bot = new Discord.Client();
@@ -116,8 +116,8 @@ const exampleEmbed = new Discord.MessageEmbed()
 	.addFields(
 		{ name: 'Fun', value: 'fruits, thumbs, ping (no prefix), random'},
 		{ name: 'Info & Tools', value: 'serverinfo, myinfo, membercount, find, cmds, help, value, write, invite, time'},
-    { name: 'Moderation', value: 'kick, ban, superduperkick (same as kick)',},
-    { name: 'Under developement', value: 'mute, play',}
+    { name: 'Moderation', value: 'kick, ban, superduperkick (same as kick), mute',},
+    { name: 'Under developement', value: 'play',}
 	)
 	.setTimestamp()
 	.setFooter('Help', 'https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF');
@@ -147,7 +147,7 @@ message.channel.send(exampleEmbed);
         { name: '!!ban <mention>', value: 'Bans a member from the server'},
         { name: '!!superduperkick <mention>', value: "Same function as 'kick' but sounds more cool"},
         { name: '~~!!play <link>~~', value: '~~Plays music~~'},
-        { name: '~~!!mute <mention>~~', value: '~~Mutes a member in the server~~'},
+        { name: '!!mute <mention>', value: 'Mutes a member in the server'},
       )
       .setFooter('Help', 'https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF')
       .setTimestamp()
@@ -189,7 +189,7 @@ bot.on('message', message => {
   var file = new Discord.MessageAttachment(message.content.substring(7,message.content.length));
   message.channel.send({files: [file]});
 }});
-/*
+
 client.on('guildMemberAdd', async member => {
 	const channel = member.guild.channels.cache.find(ch => ch.name === 'public-chat');
 	if (!channel) return;
@@ -229,7 +229,6 @@ client.on('message', message => {
 		client.emit('guildMemberAdd', message.member);
 	}
 });
-*/
 bot.on('message', message => {
 if (message.content === '!!thumbs') {
 message.react('👍');
@@ -262,6 +261,14 @@ message.awaitReactions(filter, { max: 1, time: 60000, errors: ['time'] })
   defaultreason: "You were being naughty!",
   kickmsg: "@KICKAUTHOR have been kicked @KICKEDUSER" //@KICKAUTHOR @KICKEDUSER @REASON
 }); 
+client.on('message', async message => {
+if (message.content.startsWith("!!mute ") === true){
+var args = message.content.split(' ');
+var role = message.guild.roles.cache.find(role => role.name === 'MUTED');
+var member = message.mentions.members.first();
+member.roles.add(role);
+}
+});
  kick(bot, {
   prefix:"!!",
   kickcommand: "superduperkick",
