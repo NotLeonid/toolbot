@@ -1,12 +1,15 @@
 const {welcome, purge, kick, ban, status, say, mute} = require("discord-bot-maker");
 const Discord = require("discord.js");
-const Canvas = require('canvas');
+//const Canvas = require('canvas');
+const Keyv = require('keyv');
+const keyv = new Keyv('sqlite://database.sqlite');
 const bot = new Discord.Client();
 const client = new Discord.Client();
 const fs = require('fs');
 bot.login(process.env.TOKEN);
 client.login(process.env.TOKEN);
 // process.env.TOKEN
+keyv.on('error', err => console.log('Connection Error', err));
 const applyText = (canvas, text) => {
 	const ctx = canvas.getContext('2d');
 	let fontSize = 70;
@@ -31,6 +34,10 @@ status(bot, {
   type: "WATCHING", //PLAYING, WATCHING, STREAMING, LISTENING
   title: "people | !!cmds"
 });
+
+
+
+
 bot.on('message', msg => {
   if (msg.content == 'ping') {
     msg.channel.send('Pong!');
@@ -44,6 +51,19 @@ var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(
 message.reply(time);
 }
 });
+
+bot.on('message', async message => {
+if (message.content.startsWith(",set") === true){
+var args = message.content.split(' ');
+await keyv.set(args[1], args[2]);
+message.channel.send(args[1]+": "+args[2]);
+}
+if (message.content.startsWith(",get") === true){
+var args = message.content.split(' ');
+message.channel.send(await keyv.get(args[1]));
+}
+});
+
 bot.on('message', message => {
 	if (message.content === '!!value') {
     fs.readFile("value.txt", function(err, buf) {message.channel.send("The current value is:\n_" + buf + "_");});
