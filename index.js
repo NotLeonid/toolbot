@@ -48,7 +48,7 @@ bot.on('message', message => {
 if (message.content.startsWith("!!time") === true){
 var today = new Date();
 var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-message.reply(time);
+message.reply("the time is "+time+" (UTC)");
 }
 });
 
@@ -57,9 +57,9 @@ if (message.content.startsWith("!!daily") === true){
 var args = message.content.split(' ');
 var ms = new Date().getTime();
 var expiryTime = await keyv.get(message.author.tag+"-daily");
-if (expiryTime == null) {await keyv.set(message.author.tag+"-daily", ms);}
+if (expiryTime == null) {await keyv.set(message.author.tag+"-daily", 0);}
 var expiryTime = await keyv.get(message.author.tag+"-daily");
-if (ms > expiryTime) {
+if (ms >= expiryTime) {
 var claims = await keyv.get(message.author.tag+"-claims");
 if (claims == null) {await keyv.set(message.author.tag+"-claims", 0);}
 var claims = await keyv.get(message.author.tag+"-claims");
@@ -83,9 +83,9 @@ if (message.content.startsWith("!!hour") === true){
 var args = message.content.split(' ');
 var ms = new Date().getTime();
 var expiryTime = await keyv.get(message.author.tag+"-hourly");
-if (expiryTime == null) {await keyv.set(message.author.tag+"-hourly", ms);}
+if (expiryTime == null) {await keyv.set(message.author.tag+"-hourly", 0);}
 var expiryTime = await keyv.get(message.author.tag+"-hourly");
-if (ms > expiryTime) {
+if (ms >= expiryTime) {
 var claims = await keyv.get(message.author.tag+"-claims");
 if (claims == null) {await keyv.set(message.author.tag+"-claims", 0);}
 var claims = await keyv.get(message.author.tag+"-claims");
