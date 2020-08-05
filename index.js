@@ -168,7 +168,7 @@ const exampleEmbed = new Discord.MessageEmbed()
 	.addFields(
 		{ name: 'Fun', value: 'fruits, thumbs, ping (no prefix), random, daily, hourly'},
 		{ name: 'Info & Tools', value: 'serverinfo, myinfo, membercount, find, cmds, help, value, write, invite, time'},
-    { name: 'Moderation', value: 'kick, ban, superduperkick (same as kick), mute',},
+    { name: 'Moderation', value: 'kick, ban, superduperkick (same as kick), mute, warn',},
     { name: 'Under developement', value: 'play',}
 	)
 	.setTimestamp()
@@ -201,7 +201,8 @@ message.channel.send(exampleEmbed);
         { name: '!!ban <mention>', value: 'Bans a member from the server'},
         { name: '!!superduperkick <mention>', value: "Same function as 'kick' but sounds more cool"},
         { name: '!!mute <mention>', value: 'Mutes a member in the server'},
-        { name: '~~!!play <link>~~', value: '~~Plays music~~'},
+        { name: '!!warn <mention>', value: 'Warns a member, at 3 warns, the member will be kicked.'},
+        { name: '~~!!play <link>~~', value: '~~Plays music~~'}
       )
       .setFooter('Help', 'https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF')
       .setTimestamp()
@@ -243,6 +244,23 @@ bot.on('message', message => {
   var file = new Discord.MessageAttachment(message.content.substring(7,message.content.length));
   message.channel.send({files: [file]});
 }});
+
+client.on('message', async message => {
+if (message.content.startsWith("!!warn ") === true){
+var member = message.mentions.members.first();
+if (await keyv.get(member+"-warns") == null) {await keyv.set(member+"-warns", 1);}
+var warns = await keyv.get(member+"-warns");
+await keyv.set(member+"-warns", parseInt(warns+1));
+if (warns < 3) {
+message.channel.send(member + " now have " + warns + " warns. At 3 warns, he/she will be kicked.");
+} else {
+member.kick();
+message.channel.send(member + " has 3 warns, now he/she was kicked.");
+await keyv.set(member+"-warns", 1);
+}
+}
+});
+
 /*
 client.on('guildMemberAdd', async member => {
 	const channel = member.guild.channels.cache.find(ch => ch.name === 'public-chat');
