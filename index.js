@@ -252,10 +252,10 @@ if (await keyv.get(member+"-warns") == null) {await keyv.set(member+"-warns", 1)
 var warns = await keyv.get(member+"-warns");
 await keyv.set(member+"-warns", parseInt(warns+1));
 if (warns < 3) {
-message.channel.send(member + " now have " + warns + " warns. At 3 warns, he/she will be kicked.");
+message.channel.send("<@"+member + "> now have " + warns + " warns. At 3 warns, he/she will be kicked.");
 } else {
 member.kick();
-message.channel.send(member + " has 3 warns, now he/she was kicked.");
+message.channel.send("<@"+member + "> has 3 warns, now he/she was kicked.");
 await keyv.set(member+"-warns", 1);
 }
 }
