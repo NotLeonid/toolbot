@@ -112,6 +112,8 @@ var expiryTimeH = await keyv.get(message.author.tag+"-hourly");
 var expiryTimeD = await keyv.get(message.author.tag+"-daily");
 if (expiryTimeH == null) {await keyv.set(message.author.tag+"-hourly", 0);}
 if (expiryTimeD == null) {await keyv.set(message.author.tag+"-daily", 0);}
+var expiryTimeH = await keyv.get(message.author.tag+"-hourly");
+var expiryTimeD = await keyv.get(message.author.tag+"-daily");
 if (ms > expiryTimeH) {
 message.reply("Hourly reward is available!");
 } else {
@@ -120,7 +122,7 @@ var remainingTime = Math.round(expiryTimeH);
 message.reply("Hourly reward will be available in "+remainingTime+" minutes.");
 }
 if (ms > expiryTimeD) {
-message.reply("Hourly reward is available!");
+message.reply("Daily reward is available!");
 } else {
 var expiryTimeD = parseInt(expiryTimeD-ms)/ 60 / 60 / 1000;
 var remainingTime = Math.round(expiryTimeD);
