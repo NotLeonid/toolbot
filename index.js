@@ -52,6 +52,58 @@ message.reply(time);
 }
 });
 
+client.on('message', async message => {
+if (message.content.startsWith("!!daily") === true){
+var args = message.content.split(' ');
+var ms = new Date().getTime();
+var expiryTime = await keyv.get(message.author.tag+"-daily");
+if (expiryTime == null) {await keyv.set(message.author.tag+"-daily", ms);}
+var expiryTime = await keyv.get(message.author.tag+"-daily");
+if (ms > expiryTime) {
+var claims = await keyv.get(message.author.tag+"-claims");
+if (claims == null) {await keyv.set(message.author.tag+"-claims", 0);}
+var claims = await keyv.get(message.author.tag+"-claims");
+await keyv.set(message.author.tag+"-claims", parseInt(claims+1));
+var claims = await keyv.get(message.author.tag+"-claims");
+message.reply("you have claimed your daily reward! You now have "+claims+" claims!");
+var ms = new Date().getTime();
+await keyv.set(message.author.tag+"-daily", parseInt(ms+86400000));
+} else {
+var ms = new Date().getTime();
+var expiryTime = await keyv.get(message.author.tag+"-daily");
+var expiryTime = parseInt(expiryTime-ms) / 60 / 60 / 1000;
+var remainingTime = Math.round(expiryTime);
+message.reply("it's not the time to claim your reward! You can claim your reward in "+remainingTime+" hours.");
+}
+}
+});
+
+client.on('message', async message => {
+if (message.content.startsWith("!!hour") === true){
+var args = message.content.split(' ');
+var ms = new Date().getTime();
+var expiryTime = await keyv.get(message.author.tag+"-hourly");
+if (expiryTime == null) {await keyv.set(message.author.tag+"-hourly", ms);}
+var expiryTime = await keyv.get(message.author.tag+"-hourly");
+if (ms > expiryTime) {
+var claims = await keyv.get(message.author.tag+"-claims");
+if (claims == null) {await keyv.set(message.author.tag+"-claims", 0);}
+var claims = await keyv.get(message.author.tag+"-claims");
+await keyv.set(message.author.tag+"-claims", parseInt(claims+1));
+var claims = await keyv.get(message.author.tag+"-claims");
+message.reply("you have claimed your hourly reward! You now have "+claims+" claims!");
+var ms = new Date().getTime();
+await keyv.set(message.author.tag+"-hourly", parseInt(ms+3600000));
+} else {
+var ms = new Date().getTime();
+var expiryTime = await keyv.get(message.author.tag+"-hourly");
+var expiryTime = parseInt(expiryTime-ms) / 60 / 1000;
+var remainingTime = Math.round(expiryTime);
+message.reply("it's not the time to claim your reward! You can claim your reward in "+remainingTime+" minutes.");
+}
+}
+});
+
 bot.on('message', async message => {
 if (message.content.startsWith(",set") === true){
 var args = message.content.split(' ');
@@ -114,7 +166,7 @@ const exampleEmbed = new Discord.MessageEmbed()
 	.setTitle('Commands | Prefix: !!')
 	.setThumbnail('https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF')
 	.addFields(
-		{ name: 'Fun', value: 'fruits, thumbs, ping (no prefix), random'},
+		{ name: 'Fun', value: 'fruits, thumbs, ping (no prefix), random, daily, hourly'},
 		{ name: 'Info & Tools', value: 'serverinfo, myinfo, membercount, find, cmds, help, value, write, invite, time'},
     { name: 'Moderation', value: 'kick, ban, superduperkick (same as kick), mute',},
     { name: 'Under developement', value: 'play',}
@@ -133,6 +185,8 @@ message.channel.send(exampleEmbed);
         { name: '!!thumbs', value: 'Gives you a choice between like and dislike'},
         { name: 'ping', value: 'Replies you with a Pong!'},
         { name: '!!random', value: 'Generates a random number'},
+        { name: '!!daily', value: 'Claims your daily reward'},
+        { name: '!!hourly', value: 'Claims your hourly reward'},
         { name: '!!serverinfo', value: 'Gives the info of the server as server name and member count'},
         { name: '!!myinfo', value: 'Gives the info about you'},
         { name: '!!membercount', value: 'Shows the number of members in the server'},
@@ -146,8 +200,8 @@ message.channel.send(exampleEmbed);
         { name: '!!kick <mention>', value: 'Kicks a member from the server'},
         { name: '!!ban <mention>', value: 'Bans a member from the server'},
         { name: '!!superduperkick <mention>', value: "Same function as 'kick' but sounds more cool"},
-        { name: '~~!!play <link>~~', value: '~~Plays music~~'},
         { name: '!!mute <mention>', value: 'Mutes a member in the server'},
+        { name: '~~!!play <link>~~', value: '~~Plays music~~'},
       )
       .setFooter('Help', 'https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF')
       .setTimestamp()
