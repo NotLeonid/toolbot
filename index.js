@@ -328,8 +328,8 @@ message.channel.send(exampleEmbed);
         { name: '!!random', value: 'Generates a random number'},
         { name: '!!daily', value: 'Claims your daily reward'},
         { name: '!!hourly', value: 'Claims your hourly reward'},
-        { name: '!!use <item>', value: 'Uses an item from your inventory :wrench:'},
-        { name: '!!newitem', value: 'Opens a claim-box and you get items :wrench:'},
+        { name: '!!use <item> :wrench:', value: 'Uses an item from your inventory :wrench:'},
+        { name: '!!newitem :wrench:', value: 'Opens a claim-box and you get items :wrench:'},
         { name: '!!weekly', value: 'Claims your weekly reward'},
         { name: '!!serverinfo', value: 'Gives the info of the server as server name and member count'},
         { name: '!!myinfo', value: 'Gives the info about you'},
@@ -377,7 +377,8 @@ bot.on('message', message => {
 });
 bot.on('message', message => {
 	if (message.content === '!!random') {
-    message.reply("your random number between 0 and 100 is "+between(0, 100));
+var args = message.content.split(' ');
+    message.reply("your random number between "+args[1]+" and "+args[2]+" is "+between(args[1], args[2]));
   }
 });
 bot.on('message', message => {
