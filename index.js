@@ -103,7 +103,7 @@ await keyv.set(message.author.tag+"-claimboxes", parseInt(claimboxes+3));
 var claimboxes = await keyv.get(message.author.tag+"-claimboxes");
 message.reply("you have claimed your daily reward! You now have "+claimboxes+" `claim-boxes`!");
 var ms = new Date().getTime();
-await keyv.set(message.author.tag+"-daily", parseInt(ms+604800000));
+await keyv.set(message.author.tag+"-weekly", parseInt(ms+604800000));
 var claims = await keyv.get(message.author.tag+"-claims");
 if (claims == null) {await keyv.set(message.author.tag+"-claims", 0);}
 await keyv.set(message.author.tag+"-claims", parseInt(claims+1));
