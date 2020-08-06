@@ -92,7 +92,7 @@ var embed = new Discord.MessageEmbed()
 .setColor('#0ae307')
 .setTitle(':package: | Daily reward')
 .setDescription(message.author.username + ", you have claimed your daily reward!")
-.addField("You now have "+claimboxes+" `claim-boxes`!", "You can claim a daily reward again in 24 hours!")
+.addField("You now have **__"+claimboxes+"__** `claim-boxes`!", "You can claim a daily reward again in 24 hours!")
 message.channel.send(embed);
 var ms = new Date().getTime();
 await keyv.set(message.author.tag+"-daily", parseInt(ms+86400000));
@@ -109,7 +109,7 @@ var embed = new Discord.MessageEmbed()
 .setColor('#0ae307')
 .setTitle(':package: | Daily reward')
 .setDescription(message.author.username + ", it's not the time to claim yet!")
-.addField("Please wait "+remainingTime+" hours", "You will get a `claim-box` in each reward to get items!")
+.addField("Please wait **__"+remainingTime+"__** hours", "You will get a `claim-box` in each reward to get items!")
 message.channel.send(embed);
 //message.reply("it's not the time to claim your reward! You can claim your `claim-box` in "+remainingTime+" hours.");
 }
@@ -135,7 +135,7 @@ var embed = new Discord.MessageEmbed()
 .setColor('#0ae307')
 .setTitle(':package: | Weekly reward')
 .setDescription(message.author.username + ", you have claimed your weekly reward!")
-.addField("You now have "+claimboxes+" `claim-boxes`!", "You can claim a weekly reward again in 7 days!")
+.addField("You now have **__"+claimboxes+"__** `claim-boxes`!", "You can claim a weekly reward again in 7 days!")
 message.channel.send(embed);
 
 var ms = new Date().getTime();
@@ -153,7 +153,7 @@ var embed = new Discord.MessageEmbed()
 .setColor('#0ae307')
 .setTitle(':package: | Weekly reward')
 .setDescription(message.author.username + ", it's not the time to claim yet!")
-.addField("Please wait "+remainingTime+" days", "You will get a `claim-box` in each reward to get items!")
+.addField("Please wait **__"+remainingTime+"__** days", "You will get a `claim-box` in each reward to get items!")
 message.channel.send(embed);
 //message.reply("it's not the time to claim your reward! You can claim your `claim-box` in "+remainingTime+" days.");
 }
@@ -179,7 +179,7 @@ var embed = new Discord.MessageEmbed()
 .setColor('#0ae307')
 .setTitle(':package: | Hourly reward')
 .setDescription(message.author.username + ", you have claimed your hourly reward!")
-.addField("You now have "+claimboxes+" `claim-boxes`!", "You can claim a hourly reward again in 1 hour!")
+.addField("You now have **__"+claimboxes+"__** `claim-boxes`!", "You can claim a hourly reward again in 1 hour!")
 message.channel.send(embed);
 
 var ms = new Date().getTime();
@@ -198,7 +198,7 @@ var embed = new Discord.MessageEmbed()
 .setColor('#0ae307')
 .setTitle(':package: | Hourly reward')
 .setDescription(message.author.username + ", it's not the time to claim yet!")
-.addField("Please wait "+remainingTime+" minutes", "You will get a `claim-box` in each reward to get items!")
+.addField("Please wait **__"+remainingTime+"__** minutes", "You will get a `claim-box` in each reward to get items!")
 message.channel.send(embed);
 }
 }
@@ -223,8 +223,8 @@ var hRes = ":white_check_mark: | Hourly reward is now available!";
 } else {
 var expiryTimeH = parseInt(expiryTimeH-ms) / 60 / 1000;
 var remainingTime = Math.round(expiryTimeH);
-var hRes = ":x: | Hourly reward will be available in "+remainingTime+" minutes";
-//message.reply("hourly reward will be available in "+remainingTime+" minutes.");
+var hRes = ":x: | Hourly reward will be available in **__"+remainingTime+"__** minutes";
+//message.reply("hourly reward will be available in **__"+remainingTime+"__** minutes.");
 }
 if (ms > expiryTimeD) {
 var dRes = ":white_check_mark: | Daily reward is now available!";
@@ -232,8 +232,8 @@ var dRes = ":white_check_mark: | Daily reward is now available!";
 } else {
 var expiryTimeD = parseInt(expiryTimeD-ms)/ 60 / 60 / 1000;
 var remainingTime = Math.round(expiryTimeD);
-var dRes = ":x: | Daily reward will be available in "+remainingTime+" hours";
-//message.reply("daily reward will be available in "+remainingTime+" hours.");
+var dRes = ":x: | Daily reward will be available in **__"+remainingTime+"__** hours";
+//message.reply("daily reward will be available in **__"+remainingTime+"__** hours.");
 }
 if (ms > expiryTimeW) {
 var wRes = ":white_check_mark: | Weekly reward is now available!";
@@ -241,8 +241,8 @@ var wRes = ":white_check_mark: | Weekly reward is now available!";
 } else {
 var expiryTimeD = parseInt(expiryTimeW-ms)/ 24 / 60 / 60 / 1000;
 var remainingTime = Math.round(expiryTimeD);
-var wRes = ":x: | Weekly reward will be available in "+remainingTime+" days";
-//message.reply("weekly reward will be available in "+remainingTime+" days.");
+var wRes = ":x: | Weekly reward will be available in **__"+remainingTime+"__** days";
+//message.reply("weekly reward will be available in **__"+remainingTime+"__** days.");
 }
 var claims = await keyv.get(message.author.tag+"-claims");
 if (claims == null) {await keyv.set(message.author.tag+"-claims", 0);}
@@ -258,8 +258,8 @@ var embed = new Discord.MessageEmbed()
 .addField("Hourly reward: " + hRes, "You can get 1 `claim-box` by claiming the reward")
 .addField("Daily reward:  " + dRes, "You can get 2 `claim-boxes` by claiming the reward")
 .addField("Weekly reward: " + wRes, "You can get 3 `claim-boxes` by claiming the reward")
-.addField("You currently have "+claimboxes+" `claim-boxes` in your inventory", "Claim boxes are used to get items")
-.addField("You have claimed "+claims+" rewards in total", "The number increases each time you claim a reward")
+.addField("You currently have **__"+claimboxes+"__** `claim-boxes` in your inventory", "Claim boxes are used to get items")
+.addField("You have claimed **__"+claims+"__** rewards in total", "The number increases each time you claim a reward")
 message.channel.send(embed);
 
 //message.reply("you claimed "+claims+" rewards and you have "+claimboxes+" `claim-boxes`");
