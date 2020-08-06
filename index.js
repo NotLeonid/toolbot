@@ -218,7 +218,7 @@ var expiryTimeH = await keyv.get(message.author.tag+"-hourly");
 var expiryTimeD = await keyv.get(message.author.tag+"-daily");
 var expiryTimeW = await keyv.get(message.author.tag+"-weekly");
 if (ms > expiryTimeH) {
-var hRes = ":white-check-mark: | Hourly reward is now available!";
+var hRes = ":white_check_mark: | Hourly reward is now available!";
 //message.reply("hourly reward is available!");
 } else {
 var expiryTimeH = parseInt(expiryTimeH-ms) / 60 / 1000;
@@ -227,7 +227,7 @@ var hRes = ":x: | Hourly reward will be available in "+remainingTime+" minutes";
 //message.reply("hourly reward will be available in "+remainingTime+" minutes.");
 }
 if (ms > expiryTimeD) {
-var dRes = ":white-check-mark: | Daily reward is now available!";
+var dRes = ":white_check_mark: | Daily reward is now available!";
 //message.reply("daily reward is available!");
 } else {
 var expiryTimeD = parseInt(expiryTimeD-ms)/ 60 / 60 / 1000;
@@ -236,7 +236,7 @@ var dRes = ":x: | Daily reward will be available in "+remainingTime+" hours";
 //message.reply("daily reward will be available in "+remainingTime+" hours.");
 }
 if (ms > expiryTimeW) {
-var wRes = ":white-check-mark: | Weekly reward is now available!";
+var wRes = ":white_check_mark: | Weekly reward is now available!";
 //message.reply("weekly reward is available!");
 } else {
 var expiryTimeD = parseInt(expiryTimeW-ms)/ 24 / 60 / 60 / 1000;
