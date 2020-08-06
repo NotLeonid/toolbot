@@ -376,9 +376,8 @@ bot.on('message', message => {
   }
 });
 bot.on('message', message => {
-	if (message.content === '!!random') {
-var args = message.content.split(' ');
-    message.reply("your random number between 0 and 1000 is "+between(0,1000);}
+	if (message.content.startsWith("!!rand") === true) {
+    message.reply("your random number between 0 and 1000 is "+between(0,1000));}
 });
 bot.on('message', message => {
 	if (message.content === '!!membercount') {
