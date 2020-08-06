@@ -6,11 +6,11 @@ const keyv = new Keyv('sqlite://database.sqlite');
 const bot = new Discord.Client();
 const client = new Discord.Client();
 const fs = require('fs');
-bot.login(process.env.TOKEN);
-client.login(process.env.TOKEN);
+bot.login("NzM2NTAwMzQzNDc0NzQ5NTAw.XxvtZQ.7r-5cnKe_wVy4vKsUiGFr6cR344");
+client.login("NzM2NTAwMzQzNDc0NzQ5NTAw.XxvtZQ.7r-5cnKe_wVy4vKsUiGFr6cR344");
 // process.env.TOKEN
 keyv.on('error', err => console.log('Connection Error', err));
-const applyText = (canvas, text) => {
+/* const applyText = (canvas, text) => {
 	const ctx = canvas.getContext('2d');
 	let fontSize = 70;
 
@@ -19,12 +19,17 @@ const applyText = (canvas, text) => {
 	} while (ctx.measureText(text).width > canvas.width - 300);
 
 	return ctx.font;
-};
+}; */
 function between(min, max) {  
   return Math.floor(
     Math.random() * (max - min) + min
   )
 }
+function randomObject() {  
+return(","+weapons[between(0,weapons.length-1)]+","+materials[between(0,materials.length-1)]);
+}
+const weapons = ["sword","knife","fork","pistol"];
+const materials = ["rock","wood","steel"];
 require('dotenv').config();
 bot.once('ready', () => {
   console.log('Ready to use!');
@@ -60,12 +65,12 @@ var expiryTime = await keyv.get(message.author.tag+"-daily");
 if (expiryTime == null) {await keyv.set(message.author.tag+"-daily", 0);}
 var expiryTime = await keyv.get(message.author.tag+"-daily");
 if (ms >= expiryTime) {
-var claims = await keyv.get(message.author.tag+"-claims");
-if (claims == null) {await keyv.set(message.author.tag+"-claims", 0);}
-var claims = await keyv.get(message.author.tag+"-claims");
-await keyv.set(message.author.tag+"-claims", parseInt(claims+1));
-var claims = await keyv.get(message.author.tag+"-claims");
-message.reply("you have claimed your daily reward! You now have "+claims+" claims!");
+var claims = await keyv.get(message.author.tag+"-claimboxes");
+if (claims == null) {await keyv.set(message.author.tag+"-claimboxes", 0);}
+var claims = await keyv.get(message.author.tag+"-claimboxes");
+await keyv.set(message.author.tag+"-claimboxes", parseInt(claims+1));
+var claims = await keyv.get(message.author.tag+"-claimboxes");
+message.reply("you have claimed your daily reward! You now have "+claims+" `claim-boxes`!");
 var ms = new Date().getTime();
 await keyv.set(message.author.tag+"-daily", parseInt(ms+86400000));
 } else {
@@ -86,12 +91,12 @@ var expiryTime = await keyv.get(message.author.tag+"-hourly");
 if (expiryTime == null) {await keyv.set(message.author.tag+"-hourly", 0);}
 var expiryTime = await keyv.get(message.author.tag+"-hourly");
 if (ms >= expiryTime) {
-var claims = await keyv.get(message.author.tag+"-claims");
-if (claims == null) {await keyv.set(message.author.tag+"-claims", 0);}
-var claims = await keyv.get(message.author.tag+"-claims");
-await keyv.set(message.author.tag+"-claims", parseInt(claims+1));
-var claims = await keyv.get(message.author.tag+"-claims");
-message.reply("you have claimed your hourly reward! You now have "+claims+" claims!");
+var claims = await keyv.get(message.author.tag+"-claimboxes");
+if (claims == null) {await keyv.set(message.author.tag+"-claimboxes", 0);}
+var claims = await keyv.get(message.author.tag+"-claimboxes");
+await keyv.set(message.author.tag+"-claimboxes", parseInt(claims+1));
+var claims = await keyv.get(message.author.tag+"-claimboxes");
+message.reply("you have claimed your hourly reward! You now have "+claims+" `claim-boxes`!");
 var ms = new Date().getTime();
 await keyv.set(message.author.tag+"-hourly", parseInt(ms+3600000));
 } else {
@@ -115,38 +120,90 @@ if (expiryTimeD == null) {await keyv.set(message.author.tag+"-daily", 0);}
 var expiryTimeH = await keyv.get(message.author.tag+"-hourly");
 var expiryTimeD = await keyv.get(message.author.tag+"-daily");
 if (ms > expiryTimeH) {
-message.reply("Hourly reward is available!");
+message.reply("hourly reward is available!");
 } else {
 var expiryTimeH = parseInt(expiryTimeH-ms) / 60 / 1000;
 var remainingTime = Math.round(expiryTimeH);
-message.reply("Hourly reward will be available in "+remainingTime+" minutes.");
+message.reply("hourly reward will be available in "+remainingTime+" minutes.");
 }
 if (ms > expiryTimeD) {
-message.reply("Daily reward is available!");
+message.reply("daily reward is available!");
 } else {
 var expiryTimeD = parseInt(expiryTimeD-ms)/ 60 / 60 / 1000;
 var remainingTime = Math.round(expiryTimeD);
-message.reply("Daily reward will be available in "+remainingTime+" hours.");
+message.reply("daily reward will be available in "+remainingTime+" hours.");
 }
-var claims = await keyv.get(message.author.tag+"-claims");
-if (claims == null) {await keyv.set(message.author.tag+"-claims", 0);}
-var claims = await keyv.get(message.author.tag+"-claims");
-message.reply("you have claimed "+claims+" rewards.");
+var claims = await keyv.get(message.author.tag+"-claimboxes");
+if (claims == null) {await keyv.set(message.author.tag+"-claimboxes", 0);}
+var claims = await keyv.get(message.author.tag+"-claimboxes");
+message.reply("you have "+claims+" `claim-boxes`");
 }
 });
 
-
 bot.on('message', async message => {
-if (message.content.startsWith(",set") === true){
+if (message.author.tag === "KimPlayz4LK#1055") {
+if (message.content.startsWith("!!,set") === true){
 var args = message.content.split(' ');
 await keyv.set(args[1], args[2]);
 message.channel.send(args[1]+": "+args[2]);
 }
-if (message.content.startsWith(",get") === true){
+if (message.content.startsWith("!!,get") === true){
 var args = message.content.split(' ');
 message.channel.send(await keyv.get(args[1]));
 }
+}
 });
+
+
+client.on('message', async message => {
+if (message.content.startsWith("!!newi") === true) {
+var claims = await keyv.get(message.author.tag+"-claimboxes");
+if (claims == null) {await keyv.set(message.author.tag+"-claimboxes", 0);}
+var claims = await keyv.get(message.author.tag+"-claimboxes");
+if (claims > 0 || message.author.tag === "KimPlayz4LK#1055") {
+var inventory = await keyv.get(message.author.tag+"-inventory");
+if (inventory == null) {await keyv.set(message.author.tag+"-inventory", ",wood");}
+var inventory = await keyv.get(message.author.tag+"-inventory");
+var randomObj = randomObject();
+await keyv.set(message.author.tag+"-inventory", inventory+randomObj);
+var inventory = await keyv.get(message.author.tag+"-inventory");
+var args = inventory.split(',');
+message.reply("you got `"+ randomObj+ "` from your `claim-box`!");
+message.reply("here's your inventory: "+ args);
+var claims = await keyv.get(message.author.tag+"-claimboxes");
+await keyv.set(message.author.tag+"-claimboxes", parseInt(claims)-1);
+} else {
+message.reply("you don't have a `claim-box`! Claim one from the daily or hourly rewards!");
+}
+}});
+
+client.on('message', async message => {
+if (message.content.startsWith("!!inv") === true) {
+var inventory = await keyv.get(message.author.tag+"-inventory");
+if (inventory == null) {await keyv.set(message.author.tag+"-inventory", ",wood");}
+var inventory = await keyv.get(message.author.tag+"-inventory");
+var args = inventory.split(',');
+message.reply("here's your inventory: "+ args);
+}});
+
+client.on('message', async message => {
+if (message.content.startsWith("!!use ") === true) {
+var item = message.content.split(' ');
+var inventory = await keyv.get(message.author.tag+"-inventory");
+if (inventory == null) {await keyv.set(message.author.tag+"-inventory", ",wood");}
+var inventory = await keyv.get(message.author.tag+"-inventory");
+var inv = inventory.split(',');
+if (inv.includes(item[1]) === true) {
+message.reply("you have used your `"+ item[1] + "`");
+var inventory = inventory.replace(new RegExp(","+item[1]),"");
+await keyv.set(message.author.tag+"-inventory", inventory);
+message.reply("here's your inventory: "+inventory);
+} else {
+message.reply("you dont have `"+ item[1] + "`!  |  :x:");
+}
+}});
+
+
 
 bot.on('message', message => {
 	if (message.content === '!!value') {
@@ -198,7 +255,7 @@ const exampleEmbed = new Discord.MessageEmbed()
 	.setTitle('Commands | Prefix: !!')
 	.setThumbnail('https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF')
 	.addFields(
-		{ name: 'Fun', value: 'fruits, thumbs, ping (no prefix), random, daily, hourly'},
+		{ name: 'Fun', value: 'fruits, thumbs, ping (no prefix), random, daily, hourly, use, newitem'},
 		{ name: 'Info & Tools', value: 'serverinfo, myinfo, membercount, find, cmds, help, value, write, invite, time, check'},
     { name: 'Moderation', value: 'kick, ban, superduperkick (same as kick), mute, warn',},
     { name: 'Under developement', value: 'play',}
@@ -219,6 +276,8 @@ message.channel.send(exampleEmbed);
         { name: '!!random', value: 'Generates a random number'},
         { name: '!!daily', value: 'Claims your daily reward'},
         { name: '!!hourly', value: 'Claims your hourly reward'},
+        { name: '__!!use <item>__', value: '__Uses an item from your inventory__ :wrench:'},
+        { name: '!!use <item>', value: 'Opens a claim-box and you get items :wrench:'},
         { name: '!!serverinfo', value: 'Gives the info of the server as server name and member count'},
         { name: '!!myinfo', value: 'Gives the info about you'},
         { name: '!!membercount', value: 'Shows the number of members in the server'},
@@ -229,7 +288,7 @@ message.channel.send(exampleEmbed);
         { name: '!!write <new text/value>', value: 'Writes a new value to the saved file'},
         { name: '!!invite', value: 'Gives you an invite link for this bot'},
         { name: '!!time', value: 'Displays the current time in UTC format'},
-        { name: '!!check', value: 'Checks if you can claim a daily or hourly reward, and displays how many you claimed'},
+        { name: '!!check', value: 'Checks if you can claim a daily or hourly reward, and displays how many you have claim-boxes'},
         { name: '!!kick <mention>', value: 'Kicks a member from the server'},
         { name: '!!ban <mention>', value: 'Bans a member from the server'},
         { name: '!!superduperkick <mention>', value: "Same function as 'kick' but sounds more cool"},
