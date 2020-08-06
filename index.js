@@ -230,7 +230,7 @@ message.reply("you don't have a `claim-box`! Claim one from the daily or hourly 
 }});
 
 client.on('message', async message => {
-if (message.content.startsWith("!!inv") === true) {
+if (message.content.startsWith("!!inve") === true) {
 var inventory = await keyv.get(message.author.tag+"-inventory");
 if (inventory == null) {await keyv.set(message.author.tag+"-inventory", ",wood");}
 var inventory = await keyv.get(message.author.tag+"-inventory");
@@ -258,7 +258,7 @@ message.reply("you dont have `"+ item[1] + "`!  |  :x:");
 
 
 bot.on('message', message => {
-	if (message.content === '!!value') {
+if (message.content.startsWith("!!val") === true){
     fs.readFile("value.txt", function(err, buf) {message.channel.send("The current value is:\n_" + buf + "_");});
 	} else if (message.content.startsWith('!!write') === true) {
 let value = message.content.substring(7, message.content.length) + '\n\n Wrote by: ' + message.author.tag;
@@ -301,21 +301,21 @@ dispatcher.on('error', console.error);
 	}
 }); */
 bot.on('message', message => {
-  if (message.content === "!!cmds") {
+if (message.content.startsWith("!!cmd") === true){
 const exampleEmbed = new Discord.MessageEmbed()
 	.setColor('#00a6ff')
 	.setTitle('Commands | Prefix: !!')
 	.setThumbnail('https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF')
 	.addFields(
 		{ name: 'Fun', value: 'fruits, thumbs, ping (no prefix), random :wrench:, daily, hourly, weekly, use :wrench:, newitem :wrench:'},
-		{ name: 'Info & Tools', value: 'serverinfo, myinfo, membercount, find, cmds, help, value, write, invite, time, check, deletemessages'},
+		{ name: 'Info & Tools', value: 'serverinfo, myinfo, membercount, find, cmds, help, value, write, invite, time, check, deletemessages, inventory'},
     { name: 'Moderation', value: 'kick, ban, superduperkick (same as kick), mute, warn',},
-    { name: 'Under developement', value: 'play',}
+    { name: ':tools: Under developement :tools:', value: 'play',}
 	)
 	.setTimestamp()
 	.setFooter('Help', 'https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF');
 message.channel.send(exampleEmbed);
-  } else if (message.content === "!!help") {
+  } else if (message.content.startsWith("!!help") === true){
     const exampleEmbed = new Discord.MessageEmbed()
       .setColor('#00a6ff')
       .setTitle('Help | Prefix: !!')
@@ -343,6 +343,7 @@ message.channel.send(exampleEmbed);
         { name: '!!time', value: 'Displays the current time in UTC format'},
         { name: '!!check', value: 'Checks if you can claim a daily or hourly reward, and displays how many you have claim-boxes'},
         { name: '!!deletemessages <amount>', value: 'Deletes the selected amount of messages between 1 and 99'},
+        { name: '!!inventory', value: 'Displays your items in your inventory'},
         { name: '!!kick <mention>', value: 'Kicks a member from the server'},
         { name: '!!ban <mention>', value: 'Bans a member from the server'},
         { name: '!!superduperkick <mention>', value: "Same function as 'kick' but sounds more cool"},
@@ -356,7 +357,7 @@ message.channel.send(exampleEmbed);
       }
 });
 bot.on ('message', message => {
-  if (message.content === "!!invite") {
+if (message.content.startsWith("!!invite") === true){
     const exampleEmbed = new Discord.MessageEmbed()
       .setColor('#00a6ff')
       .setTitle('Bot invite')
@@ -368,7 +369,7 @@ bot.on ('message', message => {
       }
 });
 bot.on('message', message => {
-	if (message.content === '!!serverinfo') {
+if (message.content.startsWith("!!serveri") === true){
     message.channel.send(`Server's name: ${message.guild.name}`);
     message.channel.send(`Member count: ${message.guild.memberCount}`);
   } else if (message.content === "!!myinfo") {
@@ -380,7 +381,7 @@ bot.on('message', message => {
     message.reply("your random number between 0 and 1000 is "+between(0,1000));}
 });
 bot.on('message', message => {
-	if (message.content === '!!membercount') {
+if (message.content.startsWith("!!memberc") === true){
     message.channel.send(`This server have ${message.guild.memberCount} members!`);
   }
 });
@@ -457,7 +458,7 @@ client.on('message', message => {
 });
 */
 bot.on('message', message => {
-if (message.content === '!!thumbs') {
+if (message.content.startsWith("!!thum") === true){
 message.react('👍');
 message.react('👎');
 const filter = (reaction, user) => {
