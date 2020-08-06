@@ -57,6 +57,7 @@ message.reply("the time is "+time+" (UTC)");
 }
 });
 
+
 client.on('message', async message => {
 if (message.content.startsWith("!!daily") === true){
 var args = message.content.split(' ');
@@ -65,20 +66,54 @@ var expiryTime = await keyv.get(message.author.tag+"-daily");
 if (expiryTime == null) {await keyv.set(message.author.tag+"-daily", 0);}
 var expiryTime = await keyv.get(message.author.tag+"-daily");
 if (ms >= expiryTime) {
-var claims = await keyv.get(message.author.tag+"-claimboxes");
-if (claims == null) {await keyv.set(message.author.tag+"-claimboxes", 0);}
-var claims = await keyv.get(message.author.tag+"-claimboxes");
-await keyv.set(message.author.tag+"-claimboxes", parseInt(claims+1));
-var claims = await keyv.get(message.author.tag+"-claimboxes");
-message.reply("you have claimed your daily reward! You now have "+claims+" `claim-boxes`!");
+var claimboxes = await keyv.get(message.author.tag+"-claimboxes");
+if (claimboxes == null) {await keyv.set(message.author.tag+"-claimboxes", 0);}
+var claimboxes = await keyv.get(message.author.tag+"-claimboxes");
+await keyv.set(message.author.tag+"-claimboxes", parseInt(claimboxes+2));
+var claimboxes = await keyv.get(message.author.tag+"-claimboxes");
+message.reply("you have claimed your daily reward! You now have "+claimboxes+" `claim-boxes`!");
 var ms = new Date().getTime();
 await keyv.set(message.author.tag+"-daily", parseInt(ms+86400000));
+var claims = await keyv.get(message.author.tag+"-claims");
+if (claims == null) {await keyv.set(message.author.tag+"-claims", 0);}
+await keyv.set(message.author.tag+"-claims", parseInt(claims+1));
+var claims = await keyv.get(message.author.tag+"-claims");
 } else {
 var ms = new Date().getTime();
 var expiryTime = await keyv.get(message.author.tag+"-daily");
 var expiryTime = parseInt(expiryTime-ms) / 60 / 60 / 1000;
 var remainingTime = Math.round(expiryTime);
-message.reply("it's not the time to claim your reward! You can claim your reward in "+remainingTime+" hours.");
+message.reply("it's not the time to claim your reward! You can claim your `claim-box` in "+remainingTime+" hours.");
+}
+}
+});
+
+client.on('message', async message => {
+if (message.content.startsWith("!!week") === true){
+var args = message.content.split(' ');
+var ms = new Date().getTime();
+var expiryTime = await keyv.get(message.author.tag+"-weekly");
+if (expiryTime == null) {await keyv.set(message.author.tag+"-weekly", 0);}
+var expiryTime = await keyv.get(message.author.tag+"-weekly");
+if (ms >= expiryTime) {
+var claimboxes = await keyv.get(message.author.tag+"-claimboxes");
+if (claimboxes == null) {await keyv.set(message.author.tag+"-claimboxes", 0);}
+var claimboxes = await keyv.get(message.author.tag+"-claimboxes");
+await keyv.set(message.author.tag+"-claimboxes", parseInt(claimboxes+3));
+var claimboxes = await keyv.get(message.author.tag+"-claimboxes");
+message.reply("you have claimed your daily reward! You now have "+claimboxes+" `claim-boxes`!");
+var ms = new Date().getTime();
+await keyv.set(message.author.tag+"-daily", parseInt(ms+604800000));
+var claims = await keyv.get(message.author.tag+"-claims");
+if (claims == null) {await keyv.set(message.author.tag+"-claims", 0);}
+await keyv.set(message.author.tag+"-claims", parseInt(claims+1));
+var claims = await keyv.get(message.author.tag+"-claims");
+} else {
+var ms = new Date().getTime();
+var expiryTime = await keyv.get(message.author.tag+"-weekly");
+var expiryTime = parseInt(expiryTime-ms)/ 24 / 60 / 60 / 1000;
+var remainingTime = Math.round(expiryTime);
+message.reply("it's not the time to claim your reward! You can claim your `claim-box` in "+remainingTime+" days.");
 }
 }
 });
@@ -91,20 +126,24 @@ var expiryTime = await keyv.get(message.author.tag+"-hourly");
 if (expiryTime == null) {await keyv.set(message.author.tag+"-hourly", 0);}
 var expiryTime = await keyv.get(message.author.tag+"-hourly");
 if (ms >= expiryTime) {
-var claims = await keyv.get(message.author.tag+"-claimboxes");
-if (claims == null) {await keyv.set(message.author.tag+"-claimboxes", 0);}
-var claims = await keyv.get(message.author.tag+"-claimboxes");
-await keyv.set(message.author.tag+"-claimboxes", parseInt(claims+1));
-var claims = await keyv.get(message.author.tag+"-claimboxes");
-message.reply("you have claimed your hourly reward! You now have "+claims+" `claim-boxes`!");
+var claimboxes = await keyv.get(message.author.tag+"-claimboxes");
+if (claimboxes == null) {await keyv.set(message.author.tag+"-claimboxes", 0);}
+var claimboxes = await keyv.get(message.author.tag+"-claimboxes");
+await keyv.set(message.author.tag+"-claimboxes", parseInt(claimboxes+1));
+var claimboxes = await keyv.get(message.author.tag+"-claimboxes");
+message.reply("you have claimed your hourly reward! You now have "+claimboxes+" `claim-boxes`!");
 var ms = new Date().getTime();
 await keyv.set(message.author.tag+"-hourly", parseInt(ms+3600000));
+var claims = await keyv.get(message.author.tag+"-claims");
+if (claims == null) {await keyv.set(message.author.tag+"-claims", 0);}
+await keyv.set(message.author.tag+"-claims", parseInt(claims+1));
+var claims = await keyv.get(message.author.tag+"-claims");
 } else {
 var ms = new Date().getTime();
 var expiryTime = await keyv.get(message.author.tag+"-hourly");
 var expiryTime = parseInt(expiryTime-ms) / 60 / 1000;
 var remainingTime = Math.round(expiryTime);
-message.reply("it's not the time to claim your reward! You can claim your reward in "+remainingTime+" minutes.");
+message.reply("it's not the time to claim your reward! You can claim your `claim-box` in "+remainingTime+" minutes.");
 }
 }
 });
@@ -115,10 +154,13 @@ var args = message.content.split(' ');
 var ms = new Date().getTime();
 var expiryTimeH = await keyv.get(message.author.tag+"-hourly");
 var expiryTimeD = await keyv.get(message.author.tag+"-daily");
+var expiryTimeW = await keyv.get(message.author.tag+"-weekly");
 if (expiryTimeH == null) {await keyv.set(message.author.tag+"-hourly", 0);}
 if (expiryTimeD == null) {await keyv.set(message.author.tag+"-daily", 0);}
+if (expiryTimeW == null) {await keyv.set(message.author.tag+"-weekly", 0);}
 var expiryTimeH = await keyv.get(message.author.tag+"-hourly");
 var expiryTimeD = await keyv.get(message.author.tag+"-daily");
+var expiryTimeW = await keyv.get(message.author.tag+"-weekly");
 if (ms > expiryTimeH) {
 message.reply("hourly reward is available!");
 } else {
@@ -133,10 +175,20 @@ var expiryTimeD = parseInt(expiryTimeD-ms)/ 60 / 60 / 1000;
 var remainingTime = Math.round(expiryTimeD);
 message.reply("daily reward will be available in "+remainingTime+" hours.");
 }
-var claims = await keyv.get(message.author.tag+"-claimboxes");
-if (claims == null) {await keyv.set(message.author.tag+"-claimboxes", 0);}
-var claims = await keyv.get(message.author.tag+"-claimboxes");
-message.reply("you have "+claims+" `claim-boxes`");
+if (ms > expiryTimeW) {
+message.reply("weekly reward is available!");
+} else {
+var expiryTimeD = parseInt(expiryTimeW-ms)/ 24 / 60 / 60 / 1000;
+var remainingTime = Math.round(expiryTimeD);
+message.reply("weekly reward will be available in "+remainingTime+" days.");
+}
+var claims = await keyv.get(message.author.tag+"-claims");
+if (claims == null) {await keyv.set(message.author.tag+"-claims", 0);}
+var claims = await keyv.get(message.author.tag+"-claims");
+var claimboxes = await keyv.get(message.author.tag+"-claimboxes");
+if (claimboxes == null) {await keyv.set(message.author.tag+"-claimboxes", 0);}
+var claimboxes = await keyv.get(message.author.tag+"-claimboxes");
+message.reply("you claimed "+claims+" rewards and you have "+claimboxes+" `claim-boxes`");
 }
 });
 
@@ -157,10 +209,10 @@ message.channel.send(await keyv.get(args[1]));
 
 client.on('message', async message => {
 if (message.content.startsWith("!!newi") === true) {
-var claims = await keyv.get(message.author.tag+"-claimboxes");
-if (claims == null) {await keyv.set(message.author.tag+"-claimboxes", 0);}
-var claims = await keyv.get(message.author.tag+"-claimboxes");
-if (claims > 0 || message.author.tag === "KimPlayz4LK#1055") {
+var claimboxes = await keyv.get(message.author.tag+"-claimboxes");
+if (claimboxes == null) {await keyv.set(message.author.tag+"-claimboxes", 0);}
+var claimboxes = await keyv.get(message.author.tag+"-claimboxes");
+if (claimboxes > 0 || message.author.tag === "KimPlayz4LK#1055") {
 var inventory = await keyv.get(message.author.tag+"-inventory");
 if (inventory == null) {await keyv.set(message.author.tag+"-inventory", ",wood");}
 var inventory = await keyv.get(message.author.tag+"-inventory");
@@ -170,8 +222,8 @@ var inventory = await keyv.get(message.author.tag+"-inventory");
 var args = inventory.split(',');
 message.reply("you got `"+ randomObj+ "` from your `claim-box`!");
 message.reply("here's your inventory: "+ args);
-var claims = await keyv.get(message.author.tag+"-claimboxes");
-await keyv.set(message.author.tag+"-claimboxes", parseInt(claims)-1);
+var claimboxes = await keyv.get(message.author.tag+"-claimboxes");
+await keyv.set(message.author.tag+"-claimboxes", parseInt(claimboxes)-1);
 } else {
 message.reply("you don't have a `claim-box`! Claim one from the daily or hourly rewards!");
 }
@@ -255,8 +307,8 @@ const exampleEmbed = new Discord.MessageEmbed()
 	.setTitle('Commands | Prefix: !!')
 	.setThumbnail('https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF')
 	.addFields(
-		{ name: 'Fun', value: 'fruits, thumbs, ping (no prefix), random, daily, hourly, use, newitem'},
-		{ name: 'Info & Tools', value: 'serverinfo, myinfo, membercount, find, cmds, help, value, write, invite, time, check'},
+		{ name: 'Fun', value: 'fruits, thumbs, ping (no prefix), random, daily, hourly, use, newitem, weekly'},
+		{ name: 'Info & Tools', value: 'serverinfo, myinfo, membercount, find, cmds, help, value, write, invite, time, check, deletemessages'},
     { name: 'Moderation', value: 'kick, ban, superduperkick (same as kick), mute, warn',},
     { name: 'Under developement', value: 'play',}
 	)
@@ -276,8 +328,9 @@ message.channel.send(exampleEmbed);
         { name: '!!random', value: 'Generates a random number'},
         { name: '!!daily', value: 'Claims your daily reward'},
         { name: '!!hourly', value: 'Claims your hourly reward'},
-        { name: '__!!use <item>__', value: '__Uses an item from your inventory__ :wrench:'},
-        { name: '!!use <item>', value: 'Opens a claim-box and you get items :wrench:'},
+        { name: '!!use <item>', value: 'Uses an item from your inventory :wrench:'},
+        { name: '!!newitem', value: 'Opens a claim-box and you get items :wrench:'},
+        { name: '!!weekly', value: 'Claims your weekly reward'},
         { name: '!!serverinfo', value: 'Gives the info of the server as server name and member count'},
         { name: '!!myinfo', value: 'Gives the info about you'},
         { name: '!!membercount', value: 'Shows the number of members in the server'},
@@ -289,6 +342,7 @@ message.channel.send(exampleEmbed);
         { name: '!!invite', value: 'Gives you an invite link for this bot'},
         { name: '!!time', value: 'Displays the current time in UTC format'},
         { name: '!!check', value: 'Checks if you can claim a daily or hourly reward, and displays how many you have claim-boxes'},
+        { name: '!!deletemessages <amount>', value: 'Deletes the selected amount of messages between 1 and 99'},
         { name: '!!kick <mention>', value: 'Kicks a member from the server'},
         { name: '!!ban <mention>', value: 'Bans a member from the server'},
         { name: '!!superduperkick <mention>', value: "Same function as 'kick' but sounds more cool"},
@@ -350,6 +404,15 @@ member.kick();
 message.channel.send("<@"+member + "> has 3 warns, now he/she was kicked.");
 await keyv.set(member+"-warns", 1);
 }
+}
+});
+
+
+client.on('message', message => {
+if (message.content.startsWith("!!deletem") === true){
+var args = message.content.split(' ');
+if (args[1] == null) {message.channel.send(":x: | Please provide an amout in numbers");} else 
+{if (args[1] < 100 && args[1] > 0){message.channel.bulkDelete(args[1],true);} else {message.channel.send(":x: | Please provide an amout between 1 and 99");}}
 }
 });
 
