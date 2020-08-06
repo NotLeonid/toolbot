@@ -571,7 +571,7 @@ if (warns < 3) {
 var embed = new Discord.MessageEmbed()
 .setColor('#e09e22')
 .setTitle(':oncoming_police_car: | Moderation: Warn')
-.addField("<@"+member + ">, you was warned.","That member has " + warns + " warns. At 3 warns, the member will be kicked.")
+.addField(member.tag + ", you was warned.","That member has " + warns + " warns. At 3 warns, the member will be kicked.")
 message.channel.send(embed);
 
 //message.channel.send("<@"+member + "> now have " + warns + " warns. At 3 warns, he/she will be kicked.");
