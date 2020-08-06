@@ -106,7 +106,7 @@ var expiryTime = await keyv.get(message.author.tag+"-daily");
 var expiryTime = parseInt(expiryTime-ms) / 60 / 60 / 1000;
 var remainingTime = Math.round(expiryTime);
 var embed = new Discord.MessageEmbed()
-.setColor('#0ae307')
+.setColor('#ad0a0a')
 .setTitle(':package: | Daily reward')
 .setDescription(message.author.username + ", it's not the time to claim yet!")
 .addField("Please wait **__"+remainingTime+"__** hours", "You will get a `claim-box` in each reward to get items!")
@@ -150,7 +150,7 @@ var expiryTime = await keyv.get(message.author.tag+"-weekly");
 var expiryTime = parseInt(expiryTime-ms)/ 24 / 60 / 60 / 1000;
 var remainingTime = Math.round(expiryTime);
 var embed = new Discord.MessageEmbed()
-.setColor('#0ae307')
+.setColor('#ad0a0a')
 .setTitle(':package: | Weekly reward')
 .setDescription(message.author.username + ", it's not the time to claim yet!")
 .addField("Please wait **__"+remainingTime+"__** days", "You will get a `claim-box` in each reward to get items!")
@@ -195,7 +195,7 @@ var expiryTime = parseInt(expiryTime-ms) / 60 / 1000;
 var remainingTime = Math.round(expiryTime);
 //message.reply("it's not the time to claim your reward! You can claim your `claim-box` in "+remainingTime+" minutes.");
 var embed = new Discord.MessageEmbed()
-.setColor('#0ae307')
+.setColor('#ad0a0a')
 .setTitle(':package: | Hourly reward')
 .setDescription(message.author.username + ", it's not the time to claim yet!")
 .addField("Please wait **__"+remainingTime+"__** minutes", "You will get a `claim-box` in each reward to get items!")
