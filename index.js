@@ -307,7 +307,7 @@ const exampleEmbed = new Discord.MessageEmbed()
 	.setTitle('Commands | Prefix: !!')
 	.setThumbnail('https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF')
 	.addFields(
-		{ name: 'Fun', value: 'fruits, thumbs, ping (no prefix), random, daily, hourly, weekly, use :wrench:, newitem :wrench:'},
+		{ name: 'Fun', value: 'fruits, thumbs, ping (no prefix), random :wrench:, daily, hourly, weekly, use :wrench:, newitem :wrench:'},
 		{ name: 'Info & Tools', value: 'serverinfo, myinfo, membercount, find, cmds, help, value, write, invite, time, check, deletemessages'},
     { name: 'Moderation', value: 'kick, ban, superduperkick (same as kick), mute, warn',},
     { name: 'Under developement', value: 'play',}
@@ -325,7 +325,7 @@ message.channel.send(exampleEmbed);
         { name: '!!fruits', value: 'Gives you 3 fruit reactions'},
         { name: '!!thumbs', value: 'Gives you a choice between like and dislike'},
         { name: 'ping', value: 'Replies you with a Pong!'},
-        { name: '!!random', value: 'Generates a random number'},
+        { name: '!!random :wrench:', value: 'Generates a random number'},
         { name: '!!daily', value: 'Claims your daily reward'},
         { name: '!!hourly', value: 'Claims your hourly reward'},
         { name: '!!use <item> :wrench:', value: 'Uses an item from your inventory'},
@@ -378,9 +378,7 @@ bot.on('message', message => {
 bot.on('message', message => {
 	if (message.content === '!!random') {
 var args = message.content.split(' ');
-if (args[1] == null || args[2] == null) {message.reply("please enter a valid minimal and maximal number | :x:");} else {
-    message.reply("your random number between "+args[1]+" and "+args[2]+" is "+between(parseInt(args[1]), parse(args[2])));}
-  }
+    message.reply("your random number between 0 and 1000 is "+between(0,1000);}
 });
 bot.on('message', message => {
 	if (message.content === '!!membercount') {
