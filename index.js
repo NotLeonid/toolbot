@@ -307,10 +307,10 @@ const exampleEmbed = new Discord.MessageEmbed()
 	.setTitle('Commands | Prefix: !!')
 	.setThumbnail('https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF')
 	.addFields(
-		{ name: 'Fun', value: 'fruits, thumbs, ping (no prefix), random, daily, hourly, weekly'},
+		{ name: 'Fun', value: 'fruits, thumbs, ping (no prefix), random, daily, hourly, weekly, use :wrench:, newitem :wrench:'},
 		{ name: 'Info & Tools', value: 'serverinfo, myinfo, membercount, find, cmds, help, value, write, invite, time, check, deletemessages'},
     { name: 'Moderation', value: 'kick, ban, superduperkick (same as kick), mute, warn',},
-    { name: 'Under developement', value: 'play, use, newitem',}
+    { name: 'Under developement', value: 'play',}
 	)
 	.setTimestamp()
 	.setFooter('Help', 'https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF');
@@ -328,8 +328,8 @@ message.channel.send(exampleEmbed);
         { name: '!!random', value: 'Generates a random number'},
         { name: '!!daily', value: 'Claims your daily reward'},
         { name: '!!hourly', value: 'Claims your hourly reward'},
-        { name: '!!use <item> :wrench:', value: 'Uses an item from your inventory :wrench:'},
-        { name: '!!newitem :wrench:', value: 'Opens a claim-box and you get items :wrench:'},
+        { name: '!!use <item> :wrench:', value: 'Uses an item from your inventory'},
+        { name: '!!newitem :wrench:', value: 'Opens a claim-box and you get items'},
         { name: '!!weekly', value: 'Claims your weekly reward'},
         { name: '!!serverinfo', value: 'Gives the info of the server as server name and member count'},
         { name: '!!myinfo', value: 'Gives the info about you'},
@@ -378,7 +378,8 @@ bot.on('message', message => {
 bot.on('message', message => {
 	if (message.content === '!!random') {
 var args = message.content.split(' ');
-    message.reply("your random number between "+args[1]+" and "+args[2]+" is "+between(args[1], args[2]));
+if (args[1] == null || args[2] == null) {message.reply("please enter a valid minimal and maximal number | :x:");} else {
+    message.reply("your random number between "+args[1]+" and "+args[2]+" is "+between(parseInt(args[1]), parse(args[2])));}
   }
 });
 bot.on('message', message => {
