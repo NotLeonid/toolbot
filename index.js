@@ -370,7 +370,7 @@ message.channel.send(embed);
 var embed = new Discord.MessageEmbed()
 .setColor('#0ae307')
 .setTitle(':x: | Item usage')
-.addDescription("You don't have "+item[1]+" in your inventory!")
+.setDescription("You don't have "+item[1]+" in your inventory!")
 message.channel.send(embed);
 }
 }});
@@ -384,8 +384,8 @@ if (message.content.startsWith("!!val") === true){
 var embed = new Discord.MessageEmbed()
 .setColor('#f5cc00')
 .setTitle(':memo: | File value')
-.addField(":page-facing-up: | Current value",value)
-.addField(":info: | Info","You can change the value by using the !!write command")
+.addField(":page_facing_up: | Current value",buf)
+.addField(":information_source: | Info","You can change the value by using the !!write command")
 message.channel.send(embed);
 
 //message.channel.send("The current value is:\n_" + buf + "_");
@@ -396,8 +396,8 @@ let value = message.content.substring(7, message.content.length) + '\n\n Wrote b
 var embed = new Discord.MessageEmbed()
 .setColor('#f5cc00')
 .setTitle(':memo: | File writing')
-.addDescription(message.author.tag + " made changes to the file")
-.addField(":page-facing-up: | Value changed to",value)
+.setDescription(message.author.tag + " made changes to the file")
+.addField(":page_facing_up: | Value changed to",value)
 message.channel.send(embed);
 
 fs.writeFile('value.txt', value, (err) => {
@@ -513,8 +513,8 @@ if (message.content.startsWith("!!serveri") === true){
 
 var embed = new Discord.MessageEmbed()
 .setColor('#f5cc00')
-.setTitle(':info: | Server info')
-.addDescription("Here's the server info")
+.setTitle(':information_source: | Server info')
+.setDescription("Here's the server info")
 .addField("Server name",message.guild.name)
 .addField("Member count",message.guild.memberCount)
 message.channel.send(embed);
@@ -524,8 +524,8 @@ message.channel.send(embed);
   } else if (message.content === "!!myinfo") {
 var embed = new Discord.MessageEmbed()
 .setColor('#f5cc00')
-.setTitle(':info: | Your info')
-.addDescription("Here's info about you")
+.setTitle(':information_source: | Your info')
+.setDescription("Here's info about you")
 .addField("Your username",message.author.username)
 .addField("Your ID",message.author.id)
 message.channel.send(embed);
@@ -537,7 +537,7 @@ bot.on('message', message => {
 var embed = new Discord.MessageEmbed()
 .setColor('#0ba9d9')
 .setTitle(':1234: | Random number')
-.addDescription("Here's your result")
+.setDescription("Here's your result")
 .addField("Random number between 0 and 1000",between(0,1000))
 message.channel.send(embed);
 }
@@ -547,8 +547,8 @@ bot.on('message', message => {
 if (message.content.startsWith("!!memberc") === true){
 var embed = new Discord.MessageEmbed()
 .setColor('#f5cc00')
-.setTitle(':info: | Member count')
-.addDescription("Here's the number of members in this server, including bots")
+.setTitle(':information_source: | Member count')
+.setDescription("Here's the number of members in this server, including bots")
 .addField("Member count",message.guild.memberCount)
 message.channel.send(embed);
 //    message.channel.send(`This server have ${message.guild.memberCount} members!`);
