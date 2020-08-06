@@ -307,10 +307,10 @@ const exampleEmbed = new Discord.MessageEmbed()
 	.setTitle('Commands | Prefix: !!')
 	.setThumbnail('https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF')
 	.addFields(
-		{ name: 'Fun', value: 'fruits, thumbs, ping (no prefix), random, daily, hourly, use, newitem, weekly'},
+		{ name: 'Fun', value: 'fruits, thumbs, ping (no prefix), random, daily, hourly, weekly'},
 		{ name: 'Info & Tools', value: 'serverinfo, myinfo, membercount, find, cmds, help, value, write, invite, time, check, deletemessages'},
     { name: 'Moderation', value: 'kick, ban, superduperkick (same as kick), mute, warn',},
-    { name: 'Under developement', value: 'play',}
+    { name: 'Under developement', value: 'play, use, newitem',}
 	)
 	.setTimestamp()
 	.setFooter('Help', 'https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF');
