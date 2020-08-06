@@ -6,8 +6,8 @@ const keyv = new Keyv('sqlite://database.sqlite');
 const bot = new Discord.Client();
 const client = new Discord.Client();
 const fs = require('fs');
-bot.login(process.env.TOKEN);
-client.login(process.env.TOKEN);
+bot.login("NzM1NzMzNTQ0NzMwNDkyOTU4.XxkjQg.2-i91GlVeJsCQyNu6MDlJ-dZM5s");
+client.login("NzM1NzMzNTQ0NzMwNDkyOTU4.XxkjQg.2-i91GlVeJsCQyNu6MDlJ-dZM5s");
 // process.env.TOKEN
 keyv.on('error', err => console.log('Connection Error', err));
 /* const applyText = (canvas, text) => {
@@ -53,10 +53,26 @@ bot.on('message', message => {
 if (message.content.startsWith("!!time") === true){
 var today = new Date();
 var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-message.reply("the time is "+time+" (UTC)");
+var embed = new Discord.MessageEmbed()
+.setColor('#0ba9d9')
+.setTitle(':clock7: | Time')
+.setDescription('The current time is: '+time+" (UTC)")
+message.channel.send(embed);
 }
 });
 
+client.on('message', message => {
+if (message.content.startsWith("!!react") === true){
+var args = message.content.split(' ');
+if (args[1] == null) {
+var embed = new Discord.MessageEmbed()
+.setColor('#ad0a0a')
+.setTitle(':x: | Invalid arguments')
+.setDescription('Please provide a valid emoji name with the : signs')
+message.channel.send(embed);
+} else {message.reply("here's your reaction!");message.react(args[1]);}
+}
+});
 
 client.on('message', async message => {
 if (message.content.startsWith("!!daily") === true){
@@ -71,7 +87,13 @@ if (claimboxes == null) {await keyv.set(message.author.tag+"-claimboxes", 0);}
 var claimboxes = await keyv.get(message.author.tag+"-claimboxes");
 await keyv.set(message.author.tag+"-claimboxes", parseInt(claimboxes+2));
 var claimboxes = await keyv.get(message.author.tag+"-claimboxes");
-message.reply("you have claimed your daily reward! You now have "+claimboxes+" `claim-boxes`!");
+//message.reply("you have claimed your daily reward! You now have "+claimboxes+" `claim-boxes`!");
+var embed = new Discord.MessageEmbed()
+.setColor('#0ae307')
+.setTitle(':package: | Daily reward')
+.setDescription(message.author.username + ", you have claimed your daily reward!")
+.addField("You now have "+claimboxes+" `claim-boxes`!", "You can claim a daily reward again in 24 hours!")
+message.channel.send(embed);
 var ms = new Date().getTime();
 await keyv.set(message.author.tag+"-daily", parseInt(ms+86400000));
 var claims = await keyv.get(message.author.tag+"-claims");
@@ -83,7 +105,13 @@ var ms = new Date().getTime();
 var expiryTime = await keyv.get(message.author.tag+"-daily");
 var expiryTime = parseInt(expiryTime-ms) / 60 / 60 / 1000;
 var remainingTime = Math.round(expiryTime);
-message.reply("it's not the time to claim your reward! You can claim your `claim-box` in "+remainingTime+" hours.");
+var embed = new Discord.MessageEmbed()
+.setColor('#0ae307')
+.setTitle(':package: | Daily reward')
+.setDescription(message.author.username + ", it's not the time to claim yet!")
+.addField("Please wait "+remainingTime+" hours", "You will get a `claim-box` in each reward to get items!")
+message.channel.send(embed);
+//message.reply("it's not the time to claim your reward! You can claim your `claim-box` in "+remainingTime+" hours.");
 }
 }
 });
@@ -101,7 +129,15 @@ if (claimboxes == null) {await keyv.set(message.author.tag+"-claimboxes", 0);}
 var claimboxes = await keyv.get(message.author.tag+"-claimboxes");
 await keyv.set(message.author.tag+"-claimboxes", parseInt(claimboxes+3));
 var claimboxes = await keyv.get(message.author.tag+"-claimboxes");
-message.reply("you have claimed your daily reward! You now have "+claimboxes+" `claim-boxes`!");
+//message.reply("you have claimed your daily reward! You now have "+claimboxes+" `claim-boxes`!");
+
+var embed = new Discord.MessageEmbed()
+.setColor('#0ae307')
+.setTitle(':package: | Weekly reward')
+.setDescription(message.author.username + ", you have claimed your weekly reward!")
+.addField("You now have "+claimboxes+" `claim-boxes`!", "You can claim a weekly reward again in 7 days!")
+message.channel.send(embed);
+
 var ms = new Date().getTime();
 await keyv.set(message.author.tag+"-weekly", parseInt(ms+604800000));
 var claims = await keyv.get(message.author.tag+"-claims");
@@ -113,7 +149,13 @@ var ms = new Date().getTime();
 var expiryTime = await keyv.get(message.author.tag+"-weekly");
 var expiryTime = parseInt(expiryTime-ms)/ 24 / 60 / 60 / 1000;
 var remainingTime = Math.round(expiryTime);
-message.reply("it's not the time to claim your reward! You can claim your `claim-box` in "+remainingTime+" days.");
+var embed = new Discord.MessageEmbed()
+.setColor('#0ae307')
+.setTitle(':package: | Weekly reward')
+.setDescription(message.author.username + ", it's not the time to claim yet!")
+.addField("Please wait "+remainingTime+" days", "You will get a `claim-box` in each reward to get items!")
+message.channel.send(embed);
+//message.reply("it's not the time to claim your reward! You can claim your `claim-box` in "+remainingTime+" days.");
 }
 }
 });
@@ -131,7 +173,15 @@ if (claimboxes == null) {await keyv.set(message.author.tag+"-claimboxes", 0);}
 var claimboxes = await keyv.get(message.author.tag+"-claimboxes");
 await keyv.set(message.author.tag+"-claimboxes", parseInt(claimboxes+1));
 var claimboxes = await keyv.get(message.author.tag+"-claimboxes");
-message.reply("you have claimed your hourly reward! You now have "+claimboxes+" `claim-boxes`!");
+//message.reply("you have claimed your hourly reward! You now have "+claimboxes+" `claim-boxes`!");
+
+var embed = new Discord.MessageEmbed()
+.setColor('#0ae307')
+.setTitle(':package: | Hourly reward')
+.setDescription(message.author.username + ", you have claimed your hourly reward!")
+.addField("You now have "+claimboxes+" `claim-boxes`!", "You can claim a hourly reward again in 1 hour!")
+message.channel.send(embed);
+
 var ms = new Date().getTime();
 await keyv.set(message.author.tag+"-hourly", parseInt(ms+3600000));
 var claims = await keyv.get(message.author.tag+"-claims");
@@ -143,13 +193,19 @@ var ms = new Date().getTime();
 var expiryTime = await keyv.get(message.author.tag+"-hourly");
 var expiryTime = parseInt(expiryTime-ms) / 60 / 1000;
 var remainingTime = Math.round(expiryTime);
-message.reply("it's not the time to claim your reward! You can claim your `claim-box` in "+remainingTime+" minutes.");
+//message.reply("it's not the time to claim your reward! You can claim your `claim-box` in "+remainingTime+" minutes.");
+var embed = new Discord.MessageEmbed()
+.setColor('#0ae307')
+.setTitle(':package: | Hourly reward')
+.setDescription(message.author.username + ", it's not the time to claim yet!")
+.addField("Please wait "+remainingTime+" minutes", "You will get a `claim-box` in each reward to get items!")
+message.channel.send(embed);
 }
 }
 });
 
 client.on('message', async message => {
-if (message.content.startsWith("!!check") === true){
+if (message.content.startsWith("!!check") === true || message.content.startsWith("!!cd") === true){
 var args = message.content.split(' ');
 var ms = new Date().getTime();
 var expiryTimeH = await keyv.get(message.author.tag+"-hourly");
@@ -162,25 +218,31 @@ var expiryTimeH = await keyv.get(message.author.tag+"-hourly");
 var expiryTimeD = await keyv.get(message.author.tag+"-daily");
 var expiryTimeW = await keyv.get(message.author.tag+"-weekly");
 if (ms > expiryTimeH) {
-message.reply("hourly reward is available!");
+var hRes = ":white-check-mark: | Hourly reward is now available!";
+//message.reply("hourly reward is available!");
 } else {
 var expiryTimeH = parseInt(expiryTimeH-ms) / 60 / 1000;
 var remainingTime = Math.round(expiryTimeH);
-message.reply("hourly reward will be available in "+remainingTime+" minutes.");
+var hRes = ":x: | Hourly reward will be available in "+remainingTime+" minutes";
+//message.reply("hourly reward will be available in "+remainingTime+" minutes.");
 }
 if (ms > expiryTimeD) {
-message.reply("daily reward is available!");
+var dRes = ":white-check-mark: | Daily reward is now available!";
+//message.reply("daily reward is available!");
 } else {
 var expiryTimeD = parseInt(expiryTimeD-ms)/ 60 / 60 / 1000;
 var remainingTime = Math.round(expiryTimeD);
-message.reply("daily reward will be available in "+remainingTime+" hours.");
+var dRes = ":x: | Daily reward will be available in "+remainingTime+" hours";
+//message.reply("daily reward will be available in "+remainingTime+" hours.");
 }
 if (ms > expiryTimeW) {
-message.reply("weekly reward is available!");
+var wRes = ":white-check-mark: | Weekly reward is now available!";
+//message.reply("weekly reward is available!");
 } else {
 var expiryTimeD = parseInt(expiryTimeW-ms)/ 24 / 60 / 60 / 1000;
 var remainingTime = Math.round(expiryTimeD);
-message.reply("weekly reward will be available in "+remainingTime+" days.");
+var wRes = ":x: | Weekly reward will be available in "+remainingTime+" days";
+//message.reply("weekly reward will be available in "+remainingTime+" days.");
 }
 var claims = await keyv.get(message.author.tag+"-claims");
 if (claims == null) {await keyv.set(message.author.tag+"-claims", 0);}
@@ -188,7 +250,19 @@ var claims = await keyv.get(message.author.tag+"-claims");
 var claimboxes = await keyv.get(message.author.tag+"-claimboxes");
 if (claimboxes == null) {await keyv.set(message.author.tag+"-claimboxes", 0);}
 var claimboxes = await keyv.get(message.author.tag+"-claimboxes");
-message.reply("you claimed "+claims+" rewards and you have "+claimboxes+" `claim-boxes`");
+
+var embed = new Discord.MessageEmbed()
+.setColor('#0ba9d9')
+.setTitle(':timer: | Cooldowns')
+.setDescription("You can check the cooldowns below:")
+.addField("Hourly reward: " + hRes, "You can get 1 `claim-box` by claiming the reward")
+.addField("Daily reward:  " + dRes, "You can get 2 `claim-boxes` by claiming the reward")
+.addField("Weekly reward: " + wRes, "You can get 3 `claim-boxes` by claiming the reward")
+.addField("You currently have "+claimboxes+" `claim-boxes` in your inventory", "Claim boxes are used to get items")
+.addField("You have claimed "+claims+" rewards in total", "The number increases each time you claim a reward")
+message.channel.send(embed);
+
+//message.reply("you claimed "+claims+" rewards and you have "+claimboxes+" `claim-boxes`");
 }
 });
 
@@ -197,18 +271,31 @@ if (message.author.tag === "KimPlayz4LK#1055") {
 if (message.content.startsWith("!!,set") === true){
 var args = message.content.split(' ');
 await keyv.set(args[1], args[2]);
-message.channel.send(args[1]+": "+args[2]);
+//message.channel.send(args[1]+": "+args[2]);
+var embed = new Discord.MessageEmbed()
+.setColor('#f5cc00')
+.setTitle(':newspaper: | Database')
+.setDescription("Here's the changed values:")
+.addField(args[1],args[2])
+message.channel.send(embed);
 }
 if (message.content.startsWith("!!,get") === true){
 var args = message.content.split(' ');
-message.channel.send(await keyv.get(args[1]));
+var value = await keyv.get(args[1])
+var embed = new Discord.MessageEmbed()
+.setColor('#f5cc00')
+.setTitle(':newspaper: | Database')
+.setDescription("Here's the requested values:")
+.addField(args[1],value)
+message.channel.send(embed);
+//message.channel.send(await keyv.get(args[1]));
 }
 }
 });
 
 
 client.on('message', async message => {
-if (message.content.startsWith("!!newi") === true) {
+if (message.content.startsWith("!!newi") === true || message.content.startsWith("!!claimb") === true) {
 var claimboxes = await keyv.get(message.author.tag+"-claimboxes");
 if (claimboxes == null) {await keyv.set(message.author.tag+"-claimboxes", 0);}
 var claimboxes = await keyv.get(message.author.tag+"-claimboxes");
@@ -220,12 +307,26 @@ var randomObj = randomObject();
 await keyv.set(message.author.tag+"-inventory", inventory+randomObj);
 var inventory = await keyv.get(message.author.tag+"-inventory");
 var args = inventory.split(',');
-message.reply("you got `"+ randomObj+ "` from your `claim-box`!");
-message.reply("here's your inventory: "+ args);
+//message.reply("you got `"+ randomObj+ "` from your `claim-box`!");
+//message.reply("here's your inventory: "+ args);
+
+var embed = new Discord.MessageEmbed()
+.setColor('#0ba9d9')
+.setTitle(':toolbox: | Claim-box opening')
+.setDescription("You have opened a `claim-box` and here's what you got:")
+.addField(":new: | Received items",randomObj)
+.addField(":toolbox: | Inventory",args)
+message.channel.send(embed);
+
 var claimboxes = await keyv.get(message.author.tag+"-claimboxes");
 await keyv.set(message.author.tag+"-claimboxes", parseInt(claimboxes)-1);
 } else {
-message.reply("you don't have a `claim-box`! Claim one from the daily or hourly rewards!");
+var embed = new Discord.MessageEmbed()
+.setColor('#0ae307')
+.setTitle(':x: | Uh oh...')
+.addField("You don't have a `claim-box` to open!","You can always get a claim-box by claiming a reward")
+message.channel.send(embed);
+//message.reply("you don't have a `claim-box`! Claim one from the daily or hourly rewards!");
 }
 }});
 
@@ -235,7 +336,13 @@ var inventory = await keyv.get(message.author.tag+"-inventory");
 if (inventory == null) {await keyv.set(message.author.tag+"-inventory", ",wood");}
 var inventory = await keyv.get(message.author.tag+"-inventory");
 var args = inventory.split(',');
-message.reply("here's your inventory: "+ args);
+var embed = new Discord.MessageEmbed()
+.setColor('#0ba9d9')
+.setTitle(':toolbox: | Inventory')
+.setDescription("Here's your inventory")
+.addField("Items",args)
+message.channel.send(embed);
+//message.reply("here's your inventory: "+ args);
 }});
 
 client.on('message', async message => {
@@ -246,12 +353,25 @@ if (inventory == null) {await keyv.set(message.author.tag+"-inventory", ",wood")
 var inventory = await keyv.get(message.author.tag+"-inventory");
 var inv = inventory.split(',');
 if (inv.includes(item[1]) === true) {
-message.reply("you have used your `"+ item[1] + "`");
+//message.reply("you have used your `"+ item[1] + "`");
 var inventory = inventory.replace(new RegExp(","+item[1]),"");
 await keyv.set(message.author.tag+"-inventory", inventory);
-message.reply("here's your inventory: "+inventory);
+
+var embed = new Discord.MessageEmbed()
+.setColor('#0ba9d9')
+.setTitle(':tools: | Item usage')
+.addField("Item used",item[1])
+.addField("Inventory",inventory)
+message.channel.send(embed);
+
+//message.reply("here's your inventory: "+inventory);
 } else {
-message.reply("you dont have `"+ item[1] + "`!  |  :x:");
+//message.reply("you dont have `"+ item[1] + "`!  |  :x:");
+var embed = new Discord.MessageEmbed()
+.setColor('#0ae307')
+.setTitle(':x: | Item usage')
+.addDescription("You don't have "+item[1]+" in your inventory!")
+message.channel.send(embed);
 }
 }});
 
@@ -259,14 +379,33 @@ message.reply("you dont have `"+ item[1] + "`!  |  :x:");
 
 bot.on('message', message => {
 if (message.content.startsWith("!!val") === true){
-    fs.readFile("value.txt", function(err, buf) {message.channel.send("The current value is:\n_" + buf + "_");});
+    fs.readFile("value.txt", function(err, buf) {
+
+var embed = new Discord.MessageEmbed()
+.setColor('#f5cc00')
+.setTitle(':memo: | File value')
+.addField(":page-facing-up: | Current value",value)
+.addField(":info: | Info","You can change the value by using the !!write command")
+message.channel.send(embed);
+
+//message.channel.send("The current value is:\n_" + buf + "_");
+});
 	} else if (message.content.startsWith('!!write') === true) {
 let value = message.content.substring(7, message.content.length) + '\n\n Wrote by: ' + message.author.tag;
+
+var embed = new Discord.MessageEmbed()
+.setColor('#f5cc00')
+.setTitle(':memo: | File writing')
+.addDescription(message.author.tag + " made changes to the file")
+.addField(":page-facing-up: | Value changed to",value)
+message.channel.send(embed);
+
 fs.writeFile('value.txt', value, (err) => {
     if (err) throw err;
     console.log('ERROR (S):\n' + err);
 });
-message.channel.send("Wrote \n`" + value + "`\n\n to the file. So now you can try reading by using __!!value__ command!")
+
+//message.channel.send("Wrote \n`" + value + "`\n\n to the file. So now you can try reading by using __!!value__ command!")
     console.log(message.author.tag + " wrote\n" + value + "\nto the file.");
 }
 });
@@ -307,8 +446,8 @@ const exampleEmbed = new Discord.MessageEmbed()
 	.setTitle('Commands | Prefix: !!')
 	.setThumbnail('https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF')
 	.addFields(
-		{ name: 'Fun', value: 'fruits, thumbs, ping (no prefix), random :wrench:, daily, hourly, weekly, use :wrench:, newitem :wrench:'},
-		{ name: 'Info & Tools', value: 'serverinfo, myinfo, membercount, find, cmds, help, value, write, invite, time, check, deletemessages, inventory'},
+		{ name: 'Fun', value: 'fruits, thumbs, ping (no prefix), random :wrench:, daily, hourly, weekly, use :wrench:, newitem/claimbox :wrench:, react'},
+		{ name: 'Info & Tools', value: 'serverinfo, myinfo, membercount, find, cmds, help, value, write, invite, time, check/cd, deletemessages, inventory'},
     { name: 'Moderation', value: 'kick, ban, superduperkick (same as kick), mute, warn',},
     { name: ':tools: Under developement :tools:', value: 'play',}
 	)
@@ -329,8 +468,9 @@ message.channel.send(exampleEmbed);
         { name: '!!daily', value: 'Claims your daily reward'},
         { name: '!!hourly', value: 'Claims your hourly reward'},
         { name: '!!use <item> :wrench:', value: 'Uses an item from your inventory'},
-        { name: '!!newitem :wrench:', value: 'Opens a claim-box and you get items'},
+        { name: '!!newitem / !!claimbox :wrench:', value: 'Opens a claim-box and you get items'},
         { name: '!!weekly', value: 'Claims your weekly reward'},
+        { name: '!!react <emoji>', value: 'Reacts to your message with a selected emoji (: signs required)'},
         { name: '!!serverinfo', value: 'Gives the info of the server as server name and member count'},
         { name: '!!myinfo', value: 'Gives the info about you'},
         { name: '!!membercount', value: 'Shows the number of members in the server'},
@@ -341,7 +481,7 @@ message.channel.send(exampleEmbed);
         { name: '!!write <new text/value>', value: 'Writes a new value to the saved file'},
         { name: '!!invite', value: 'Gives you an invite link for this bot'},
         { name: '!!time', value: 'Displays the current time in UTC format'},
-        { name: '!!check', value: 'Checks if you can claim a daily or hourly reward, and displays how many you have claim-boxes'},
+        { name: '!!check / !!cd', value: 'Checks your cooldowns on reward claiming, and displays how many you have claim-boxes and you claimed rewards'},
         { name: '!!deletemessages <amount>', value: 'Deletes the selected amount of messages between 1 and 99'},
         { name: '!!inventory', value: 'Displays your items in your inventory'},
         { name: '!!kick <mention>', value: 'Kicks a member from the server'},
@@ -370,19 +510,48 @@ if (message.content.startsWith("!!invite") === true){
 });
 bot.on('message', message => {
 if (message.content.startsWith("!!serveri") === true){
-    message.channel.send(`Server's name: ${message.guild.name}`);
-    message.channel.send(`Member count: ${message.guild.memberCount}`);
+
+var embed = new Discord.MessageEmbed()
+.setColor('#f5cc00')
+.setTitle(':info: | Server info')
+.addDescription("Here's the server info")
+.addField("Server name",message.guild.name)
+.addField("Member count",message.guild.memberCount)
+message.channel.send(embed);
+
+    //message.channel.send(`Server's name: ${message.guild.name}`);
+    //message.channel.send(`Member count: ${message.guild.memberCount}`);
   } else if (message.content === "!!myinfo") {
-    message.reply(`\nyour username: ${message.author.username}\nYour ID: ${message.author.id}`);
+var embed = new Discord.MessageEmbed()
+.setColor('#f5cc00')
+.setTitle(':info: | Your info')
+.addDescription("Here's info about you")
+.addField("Your username",message.author.username)
+.addField("Your ID",message.author.id)
+message.channel.send(embed);
+//    message.reply(`\nyour username: ${message.author.username}\nYour ID: ${message.author.id}`);
   }
 });
 bot.on('message', message => {
 	if (message.content.startsWith("!!rand") === true) {
-    message.reply("your random number between 0 and 1000 is "+between(0,1000));}
+var embed = new Discord.MessageEmbed()
+.setColor('#0ba9d9')
+.setTitle(':1234: | Random number')
+.addDescription("Here's your result")
+.addField("Random number between 0 and 1000",between(0,1000))
+message.channel.send(embed);
+}
+    //message.reply("your random number between 0 and 1000 is "+between(0,1000));}
 });
 bot.on('message', message => {
 if (message.content.startsWith("!!memberc") === true){
-    message.channel.send(`This server have ${message.guild.memberCount} members!`);
+var embed = new Discord.MessageEmbed()
+.setColor('#f5cc00')
+.setTitle(':info: | Member count')
+.addDescription("Here's the number of members in this server, including bots")
+.addField("Member count",message.guild.memberCount)
+message.channel.send(embed);
+//    message.channel.send(`This server have ${message.guild.memberCount} members!`);
   }
 });
 bot.on('message', message => {
@@ -398,10 +567,23 @@ if (await keyv.get(member+"-warns") == null) {await keyv.set(member+"-warns", 1)
 var warns = await keyv.get(member+"-warns");
 await keyv.set(member+"-warns", parseInt(warns+1));
 if (warns < 3) {
-message.channel.send("<@"+member + "> now have " + warns + " warns. At 3 warns, he/she will be kicked.");
+
+var embed = new Discord.MessageEmbed()
+.setColor('#e09e22')
+.setTitle(':oncoming_police_car: | Moderation: Warn')
+.addField("<@"+member + ">, you was warned.","That member has " + warns + " warns. At 3 warns, the member will be kicked.")
+message.channel.send(embed);
+
+//message.channel.send("<@"+member + "> now have " + warns + " warns. At 3 warns, he/she will be kicked.");
 } else {
 member.kick();
-message.channel.send("<@"+member + "> has 3 warns, now he/she was kicked.");
+
+var embed = new Discord.MessageEmbed()
+.setColor('#e09e22')
+.setTitle(':oncoming_police_car: | Moderation: Warn')
+.addField("<@"+member + ">, you have reached 3 warns, now you are kicked.","That member is now kicked")
+message.channel.send(embed);
+//message.channel.send("<@"+member + "> has 3 warns, now he/she was kicked.");
 await keyv.set(member+"-warns", 1);
 }
 }
