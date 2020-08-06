@@ -6,8 +6,8 @@ const keyv = new Keyv('sqlite://database.sqlite');
 const bot = new Discord.Client();
 const client = new Discord.Client();
 const fs = require('fs');
-bot.login("NzM1NzMzNTQ0NzMwNDkyOTU4.XxkjQg.2-i91GlVeJsCQyNu6MDlJ-dZM5s");
-client.login("NzM1NzMzNTQ0NzMwNDkyOTU4.XxkjQg.2-i91GlVeJsCQyNu6MDlJ-dZM5s");
+bot.login(process.env.TOKEN);
+client.login(process.env.TOKEN);
 // process.env.TOKEN
 keyv.on('error', err => console.log('Connection Error', err));
 /* const applyText = (canvas, text) => {
