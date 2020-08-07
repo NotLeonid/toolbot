@@ -5,7 +5,6 @@
   "main": "index.js",
   "dependencies": {
     "@keyv/sqlite": "^2.0.2",
-    "bcrypt": "^5.0.0",
     "discord-bot-maker": "^0.2.2",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
