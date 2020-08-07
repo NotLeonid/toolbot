@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "@discordjs/opus": "^0.3.2",
     "@keyv/sqlite": "^2.0.2",
     "discord-bot-maker": "^0.2.2",
     "discord.js": "^12.2.0",
