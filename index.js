@@ -492,6 +492,8 @@ const exampleEmbed = new Discord.MessageEmbed()
     { name: 'Moderation', value: 'kick, ban, superduperkick (same as kick), mute, warn',},
     //{ name: ':tools: Under developement :tools:', value: "Nothing!"}
 	)
+.addField("Vote on discordbotlist!","https://discord.com/api/oauth2/authorize?client_id=735733544730492958&permissions=8&scope=bot")
+.addField("Check discordbots!","https://discord.bots.gg/bots/735733544730492958")
 	.setTimestamp()
 	.setFooter('Help', 'https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF');
 message.channel.send(exampleEmbed);
@@ -534,6 +536,8 @@ message.channel.send(exampleEmbed);
         { name: '!!play / !!music <link>', value: 'Plays music from the selected link from YouTube'},
         { name: '!!stop', value: 'Stops music'},
       )
+.addField("Vote on discordbotlist!","https://discord.com/api/oauth2/authorize?client_id=735733544730492958&permissions=8&scope=bot")
+.addField("Check discordbots!","https://discord.bots.gg/bots/735733544730492958")
       .setFooter('Help', 'https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF')
       .setTimestamp()
     message.channel.send(exampleEmbed);
