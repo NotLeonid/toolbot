@@ -5,6 +5,7 @@ const Keyv = require('keyv');
 const keyv = new Keyv('sqlite://database.sqlite');
 const bot = new Discord.Client();
 const client = new Discord.Client();
+const ytdl = require('ytdl-core');
 const fs = require('fs');
 bot.login(process.env.TOKEN);
 client.login(process.env.TOKEN);
@@ -31,22 +32,32 @@ return(","+weapons[between(0,weapons.length-1)]+","+materials[between(0,material
 const weapons = ["sword","knife","fork","pistol"];
 const materials = ["rock","wood","steel"];
 require('dotenv').config();
-bot.once('ready', () => {
-  console.log('Ready to use!');
-  console.log(`Logged in as ${bot.user.tag}!`);
-});
+/*
 status(bot, {
   type: "WATCHING", //PLAYING, WATCHING, STREAMING, LISTENING
   title: "people | !!cmds"
 });
+*/
+function newStatus() {
+  if (between(0,10) > 4) {
+    client.user.setActivity(`${client.users.cache.size} users | !!cmds`, { type: 'LISTENING' });
+    } else {client.user.setActivity(`${client.guilds.cache.size} servers | !!cmds`, { type: 'WATCHING' });}
+}
+client.on("ready", () => {
+  console.log('Ready to use!');
+  console.log(`Logged in as ${client.user.tag}!`);
+  console.log(`Bot has started, with ${client.users.cache.size} users, in ${client.channels.cache.size} channels of ${client.guilds.cache.size} guilds.`);
+  newStatus();
+});
 
+client.on("guildCreate", guild => {
+  console.log(`Joined to: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
+  newStatus();
+});
 
-
-
-bot.on('message', msg => {
-  if (msg.content == 'ping') {
-    msg.channel.send('Pong!');
-  }
+client.on("guildDelete", guild => {
+  console.log(`Removed from: ${guild.name} (id: ${guild.id})`);
+  newStatus();
 });
 
 bot.on('message', message => {
@@ -58,6 +69,20 @@ var embed = new Discord.MessageEmbed()
 .setTitle(':clock7: | Time')
 .setDescription('The current time is: '+time+" (UTC)")
 message.channel.send(embed);
+}
+});
+
+client.on('message', message => {
+if (message.content.startsWith("!!botin") === true){
+var embed = new Discord.MessageEmbed()
+.setColor('#f5cc00')
+.setTitle(':bar_chart: | Bot info')
+.setDescription("Here's the bot's info/status:")
+.addField("Total users in all servers",client.users.cache.size+" users")
+.addField("Total channels in all servers",client.channels.cache.size+" channels")
+.addField("Total servers the bot is in",client.guilds.cache.size+" servers")
+message.channel.send(embed);
+newStatus();
 }
 });
 
@@ -74,6 +99,41 @@ message.channel.send(embed);
 }
 });
 
+client.on('message', message => {
+  if (message.content.startsWith("!!,stat") === true){
+    if (message.author.tag === "KimPlayz4LK#1055") {
+      var types = ["WATCHING","LISTENING","STREAMING","PLAYING"];
+  var args = message.content.split(' ');
+  if (args[1] !== null && args[2] !== null && types.includes(args[1])) {
+    var embed = new Discord.MessageEmbed()
+    .setColor('#f5cc00')
+    .setTitle(':information_source: | Bot status')
+    .setDescription("Here's the changed values:")
+    .addField("Activity type",args[1])
+    .addField("Status message/info",args[2])
+    message.channel.send(embed);
+    client.user.setActivity(args[2], { type: args[1] });
+  } else {
+    if (!types.includes(args[1]) || args[2] === null) {
+  var embed = new Discord.MessageEmbed()
+  .setColor('#ad0a0a')
+  .setTitle(':information_source: | Syntax error')
+  .setDescription("Please select the right arguments below:\rTypes: WATCHING, LISTENING, PLAYING, STREAMING\rYou can write whatever you want in details like this:\r!!,status PLAYING video_games\rAnd the bot will show this:\rPlaying **video_games**")
+  message.channel.send(embed);}
+  }}}
+  });
+
+client.on('message', async message => {
+  if (message.content.startsWith("!!pin") == true) {
+  const m = await message.channel.send("Ping?");
+  var embed = new Discord.MessageEmbed()
+.setColor('#f5cc00')
+.setTitle(':ping_pong: | Ping')
+.setDescription(message.author + ", here's the bot's ping information")
+.addField("Latency",m.createdTimestamp - message.createdTimestamp + "ms")
+.addField("API Latency",Math.round(client.ws.ping) + "ms")
+m.edit(embed);
+}});
 client.on('message', async message => {
 if (message.content.startsWith("!!daily") === true){
 var args = message.content.split(' ');
@@ -322,7 +382,7 @@ var claimboxes = await keyv.get(message.author.tag+"-claimboxes");
 await keyv.set(message.author.tag+"-claimboxes", parseInt(claimboxes)-1);
 } else {
 var embed = new Discord.MessageEmbed()
-.setColor('#0ae307')
+.setColor('#ad0a0a')
 .setTitle(':x: | Uh oh...')
 .addField("You don't have a `claim-box` to open!","You can always get a claim-box by claiming a reward")
 message.channel.send(embed);
@@ -331,7 +391,7 @@ message.channel.send(embed);
 }});
 
 client.on('message', async message => {
-if (message.content.startsWith("!!inve") === true) {
+if (message.content.startsWith("!!inve") === true || message.content === "!!inv") {
 var inventory = await keyv.get(message.author.tag+"-inventory");
 if (inventory == null) {await keyv.set(message.author.tag+"-inventory", ",wood");}
 var inventory = await keyv.get(message.author.tag+"-inventory");
@@ -368,7 +428,7 @@ message.channel.send(embed);
 } else {
 //message.reply("you dont have `"+ item[1] + "`!  |  :x:");
 var embed = new Discord.MessageEmbed()
-.setColor('#0ae307')
+.setColor('#ad0a0a')
 .setTitle(':x: | Item usage')
 .setDescription("You don't have "+item[1]+" in your inventory!")
 message.channel.send(embed);
@@ -446,10 +506,10 @@ const exampleEmbed = new Discord.MessageEmbed()
 	.setTitle('Commands | Prefix: !!')
 	.setThumbnail('https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF')
 	.addFields(
-		{ name: 'Fun', value: 'fruits, thumbs, ping (no prefix), random :wrench:, daily, hourly, weekly, use :wrench:, newitem/claimbox :wrench:, react'},
-		{ name: 'Info & Tools', value: 'serverinfo, myinfo, membercount, find, cmds, help, value, write, invite, time, check/cd, deletemessages, inventory'},
+		{ name: 'Fun', value: 'fruits, thumbs, random :wrench:, daily, hourly, weekly, use :wrench:, newitem/claimbox :wrench:, react'},
+		{ name: 'Info & Tools', value: 'serverinfo, myinfo, membercount, find, cmds, help, value, write, invite, time, check/cd, deletemessages / del, inventory / inv, play / music, stop, ping, botinfo'},
     { name: 'Moderation', value: 'kick, ban, superduperkick (same as kick), mute, warn',},
-    { name: ':tools: Under developement :tools:', value: 'play',}
+    //{ name: ':tools: Under developement :tools:', value: "Nothing!"}
 	)
 	.setTimestamp()
 	.setFooter('Help', 'https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF');
@@ -463,7 +523,7 @@ message.channel.send(exampleEmbed);
       .addFields(
         { name: '!!fruits', value: 'Gives you 3 fruit reactions'},
         { name: '!!thumbs', value: 'Gives you a choice between like and dislike'},
-        { name: 'ping', value: 'Replies you with a Pong!'},
+        { name: '!!ping', value: "Displays the bot's ping"},
         { name: '!!random :wrench:', value: 'Generates a random number'},
         { name: '!!daily', value: 'Claims your daily reward'},
         { name: '!!hourly', value: 'Claims your hourly reward'},
@@ -482,14 +542,16 @@ message.channel.send(exampleEmbed);
         { name: '!!invite', value: 'Gives you an invite link for this bot'},
         { name: '!!time', value: 'Displays the current time in UTC format'},
         { name: '!!check / !!cd', value: 'Checks your cooldowns on reward claiming, and displays how many you have claim-boxes and you claimed rewards'},
-        { name: '!!deletemessages <amount>', value: 'Deletes the selected amount of messages between 1 and 99'},
-        { name: '!!inventory', value: 'Displays your items in your inventory'},
+        { name: '!!deletemessages / !!del <amount>', value: 'Deletes the selected amount of messages between 1 and 99'},
+        { name: '!!inventory / !!inv', value: 'Displays your items in your inventory'},
+        { name: '!!botinfo', value: 'Returns the bot stats'},
         { name: '!!kick <mention>', value: 'Kicks a member from the server'},
         { name: '!!ban <mention>', value: 'Bans a member from the server'},
         { name: '!!superduperkick <mention>', value: "Same function as 'kick' but sounds more cool"},
         { name: '!!mute <mention>', value: 'Mutes a member in the server'},
         { name: '!!warn <mention>', value: 'Warns a member, at 3 warns, the member will be kicked'},
-        { name: '~~!!play <link>~~', value: '~~Plays music~~'}
+        { name: '!!play / !!music <link>', value: 'Plays music from the selected link from YouTube'},
+        { name: '!!stop', value: 'Stops music'},
       )
       .setFooter('Help', 'https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF')
       .setTimestamp()
@@ -521,7 +583,7 @@ message.channel.send(embed);
 
     //message.channel.send(`Server's name: ${message.guild.name}`);
     //message.channel.send(`Member count: ${message.guild.memberCount}`);
-  } else if (message.content === "!!myinfo") {
+  } else if (message.content.startsWith("!!myin") === true) {
 var embed = new Discord.MessageEmbed()
 .setColor('#f5cc00')
 .setTitle(':information_source: | Your info')
@@ -591,7 +653,7 @@ await keyv.set(member+"-warns", 1);
 
 
 client.on('message', message => {
-if (message.content.startsWith("!!deletem") === true){
+if (message.content.startsWith("!!deletem") === true || message.content.startsWith("!!del ") === true){
 var args = message.content.split(' ');
 if (args[1] == null) {message.channel.send(":x: | Please provide an amout in numbers");} else 
 {if (args[1] < 100 && args[1] > 0){message.channel.bulkDelete(args[1],true);} else {message.channel.send(":x: | Please provide an amout between 1 and 99");}}
@@ -659,6 +721,57 @@ message.awaitReactions(filter, { max: 1, time: 60000, errors: ['time'] })
 	.catch(collected => {
 		message.reply('you reacted with neither a thumbs up, nor a thumbs down.');
 	});
+}
+});
+
+client.on('message', message => {
+	if (message.content.startsWith('!!play') === true || message.content.startsWith('!!music') === true) {
+        var args = message.content.split(' ');
+        if (args[1] !== undefined && args[1] !== null){
+            if (message.channel.type !== 'text') return;
+		const voiceChannel = message.member.voice.channel;
+		if (!voiceChannel) {
+            var embed = new Discord.MessageEmbed()
+            .setColor('#ad0a0a')
+            .setTitle(':musical_note: | Error')
+            .setDescription("You should join a voice channel before playing music!\rYou won't hear your music then!")
+            return message.channel.send(embed);
+		}
+		voiceChannel.join().then(connection => {
+			const stream = ytdl(args[1], { filter: 'audioonly' });
+            const dispatcher = connection.play(stream);
+            var embed = new Discord.MessageEmbed()
+            .setColor('#0ba9d9')
+            .setTitle(':musical_note: | Music')
+            .setDescription('Music started at <#'+voiceChannel+'>')
+            .addField("Song URL/link", args[1])
+            .addField("Music started by", message.author)
+            message.channel.send(embed);
+			dispatcher.on('finish', () => voiceChannel.leave());
+		});
+    }else {
+var embed = new Discord.MessageEmbed()
+.setColor('#ad0a0a')
+.setTitle(':musical_note: | Invalid arguments')
+.setDescription('Please, provide a valid link (URL)')
+message.channel.send(embed);
+    }
+} else if (message.content.startsWith('!!stop') === true) {
+    const voiceChannel = message.member.voice.channel;
+		if (!voiceChannel) {
+            var embed = new Discord.MessageEmbed()
+            .setColor('#ad0a0a')
+            .setTitle(':musical_note: | Error')
+            .setDescription("<@"+message.author.id+">You should join the music channel where you want to stop the music")
+            message.channel.send(embed);
+		}
+    voiceChannel.leave();
+    var embed = new Discord.MessageEmbed()
+.setColor('#0ba9d9')
+.setTitle(':musical_note: | Music')
+.setDescription('Music stopped in <#'+voiceChannel+'>')
+.addField("Music stopped by", message.author)
+message.channel.send(embed);
 }
 });
 
