@@ -470,7 +470,7 @@ fs.writeFile('value.txt', value, (err) => {
 }
 });
 bot.on('message', message => {
-if (message.content === '!!fruits') {
+if (message.content.startsWith('!!fru')===true) {
 	message.react('🍎');
 	console.log('Reacted with an apple');
 	message.react('🍊');
@@ -479,26 +479,7 @@ if (message.content === '!!fruits') {
 	console.log('Reacted with grapes');
 }
 });
-/*
-bot.on('message', async message => {
-  if (message.member.voice.channel) {
-    const connection = await message.member.voice.channel.join();
-  }
-	if (message.content.startsWith('!!play ') === true) {
-      const connection = await message.member.voice.channel.join();
-      var song = message.content.substring(7,message.content.length)
-      message.channel.send(`${song}`);
-      const dispatcher = connection.play(song, { volume: 0.5 });;
-dispatcher.on('start', () => {
-  console.log(song + ' have started playing');
-  message.channel.send(`${message.author.name.tag} have started playing ${song}`);
-});
-dispatcher.on('finish', () => {
-  console.log(song + ' have finished playing');
-});
-dispatcher.on('error', console.error);
-	}
-}); */
+
 bot.on('message', message => {
 if (message.content.startsWith("!!cmd") === true){
 const exampleEmbed = new Discord.MessageEmbed()
