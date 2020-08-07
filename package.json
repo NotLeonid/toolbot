@@ -4,14 +4,17 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "@discordjs/opus": "^0.3.2",
     "@keyv/sqlite": "^2.0.2",
     "discord-bot-maker": "^0.2.2",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
+    "ffmpeg-static": "^4.2.6",
     "keyv": "^4.0.1",
     "node-gyp": "^7.0.0",
     "node-pre-gyp": "^0.15.0",
-    "sqlite3": "^5.0.0"
+    "sqlite3": "^5.0.0",
+    "ytdl-core": "^3.2.0"
   },
   "devDependencies": {},
   "engines": {
