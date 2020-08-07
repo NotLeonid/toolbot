@@ -488,9 +488,9 @@ const exampleEmbed = new Discord.MessageEmbed()
 	.setThumbnail('https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF')
 	.addFields(
 		{ name: 'Fun', value: 'fruits, thumbs, random :wrench:, daily, hourly, weekly, use :wrench:, newitem/claimbox :wrench:, react'},
-		{ name: 'Info & Tools', value: 'serverinfo, myinfo, membercount, find, cmds, help, value, write, invite, time, check/cd, deletemessages / del, inventory / inv, play / music, stop, ping, botinfo'},
+		{ name: 'Info & Tools', value: 'serverinfo, myinfo, membercount, find, cmds, help, value, write, invite, time, check/cd, deletemessages / del, inventory / inv, ping, botinfo'},
     { name: 'Moderation', value: 'kick, ban, superduperkick (same as kick), mute, warn',},
-    //{ name: ':tools: Under developement :tools:', value: "Nothing!"}
+    { name: ':tools: Under developement :tools:', value: "Music: play, music, stop"}
 	)
 .addField("Vote on discordbotlist!","https://discord.com/api/oauth2/authorize?client_id=735733544730492958&permissions=8&scope=bot")
 .addField("Check discordbots!","https://discord.bots.gg/bots/735733544730492958")
