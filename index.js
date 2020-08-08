@@ -60,6 +60,10 @@ client.on("guildDelete", guild => {
   newStatus();
 });
 
+client.on("guildMemberAdd", guild => {
+  newStatus();
+});
+
 bot.on('message', message => {
 if (message.content.startsWith("!!time") === true){
 var today = new Date();
