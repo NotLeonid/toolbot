@@ -60,8 +60,37 @@ client.on("guildDelete", guild => {
   newStatus();
 });
 
-client.on("guildMemberAdd", guild => {
+client.on('guildMemberAdd', async member => {
+  console.log(`New member joined: ${member}`);
   newStatus();
+const user = client.users.cache.get('671458145658470420');
+var embed = new Discord.MessageEmbed()
+.setColor('#0ba9d9')
+.setTitle(':inbox_tray: | New member joined')
+.setDescription("A new member joined a server!")
+.addField("Member ID",member)
+.addField("Server name",member.guild)
+user.send(embed);
+});
+
+client.on('guildMemberRemove', async member => {
+  console.log(`New member leaved: ${member}`);
+  newStatus();
+const user = client.users.cache.get('671458145658470420');
+var embed = new Discord.MessageEmbed()
+.setColor('#0ba9d9')
+.setTitle(':outbox_tray: | Member leaved')
+.setDescription("A member leaved a server!")
+.addField("Member ID",member)
+.addField("Server name",member.guild)
+user.send(embed);
+});
+
+client.on('message', message => {
+if (message.content.startsWith('!!:emit')===true) {
+var args = message.content.split(" ");
+client.emit(args[1], args[2]);
+}
 });
 
 bot.on('message', message => {
@@ -622,17 +651,17 @@ if (warns < 3) {
 var embed = new Discord.MessageEmbed()
 .setColor('#e09e22')
 .setTitle(':oncoming_police_car: | Moderation: Warn')
-.addField(member.tag + ", you was warned.","That member has " + warns + " warns. At 3 warns, the member will be kicked.")
+.addField(member + ", you was warned.","That member has " + warns + " warns. At 3 warns, the member will be kicked.")
 message.channel.send(embed);
 
-//message.channel.send("<@"+member + "> now have " + warns + " warns. At 3 warns, he/she will be kicked.");
+//message.channel.send(member + " now have " + warns + " warns. At 3 warns, he/she will be kicked.");
 } else {
 member.kick();
 
 var embed = new Discord.MessageEmbed()
 .setColor('#e09e22')
 .setTitle(':oncoming_police_car: | Moderation: Warn')
-.addField("<@"+member + ">, you have reached 3 warns, now you are kicked.","That member is now kicked")
+.addField("<@"+member.id + ">, you have reached 3 warns, now you are kicked.","That member is now kicked")
 message.channel.send(embed);
 //message.channel.send("<@"+member + "> has 3 warns, now he/she was kicked.");
 await keyv.set(member+"-warns", 1);
