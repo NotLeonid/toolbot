@@ -806,6 +806,8 @@ client.on('message', async message => {
 if (message.content.startsWith("!!mute ") === true){
 var args = message.content.split(' ');
 var role = message.guild.roles.cache.find(role => role.name === 'MUTED');
+if (!role) {guild.roles.create({ data: { name: 'MUTED', permissions: ['CREATE_INSTANT_INVITE', 'ADD_REACTIONS'] } });}
+var role = message.guild.roles.cache.find(role => role.name === 'MUTED');
 var member = message.mentions.members.first();
 member.roles.add(role);
 }
