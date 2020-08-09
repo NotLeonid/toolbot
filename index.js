@@ -1,6 +1,6 @@
 const {welcome, purge, kick, ban, status, say, mute} = require("discord-bot-maker");
 const Discord = require("discord.js");
-//const Canvas = require('canvas');
+const Canvas = require('canvas');
 const Keyv = require('keyv');
 const keyv = new Keyv('sqlite://database.sqlite');
 const bot = new Discord.Client();
@@ -11,7 +11,7 @@ bot.login(process.env.TOKEN);
 client.login(process.env.TOKEN);
 // process.env.TOKEN
 keyv.on('error', err => console.log('Connection Error', err));
-/* const applyText = (canvas, text) => {
+ const applyText = (canvas, text) => {
 	const ctx = canvas.getContext('2d');
 	let fontSize = 70;
 
@@ -20,7 +20,7 @@ keyv.on('error', err => console.log('Connection Error', err));
 	} while (ctx.measureText(text).width > canvas.width - 300);
 
 	return ctx.font;
-}; */
+}; 
 function between(min, max) {  
   return Math.floor(
     Math.random() * (max - min) + min
@@ -521,9 +521,9 @@ const exampleEmbed = new Discord.MessageEmbed()
 	.setThumbnail('https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF')
 	.addFields(
 		{ name: 'Fun', value: 'fruits, thumbs, random :wrench:, daily, hourly, weekly, use :wrench:, newitem/claimbox :wrench:, react'},
-		{ name: 'Info & Tools', value: 'serverinfo, myinfo, membercount, find, cmds, help, value, write, invite, time, check/cd, deletemessages / del, inventory / inv, ping, botinfo'},
+		{ name: 'Info & Tools', value: 'serverinfo, myinfo, membercount, find, cmds, help, value, write, invite, time, check/cd, deletemessages/del, inventory/inv, ping, botinfo, play/music, stop'},
     { name: 'Moderation', value: 'kick, ban, superduperkick (same as kick), mute, warn',},
-    { name: ':tools: Under developement :tools:', value: "Music: play, music, stop"}
+//    { name: ':tools: Under developement :tools:', value: ""}
 	)
 .addField("Vote on discordbotlist!","https://discord.com/api/oauth2/authorize?client_id=735733544730492958&permissions=8&scope=bot")
 .addField("Check discordbots!","https://discord.bots.gg/bots/735733544730492958")
@@ -536,6 +536,7 @@ message.channel.send(exampleEmbed);
       .setTitle('Help | Prefix: !!')
       .setDescription('This help message gives you help about commands')
       .setThumbnail('https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF')
+.addField("Support server link","https://discord.gg/P9V3BmZ")
       .addFields(
         { name: '!!fruits', value: 'Gives you 3 fruit reactions'},
         { name: '!!thumbs', value: 'Gives you a choice between like and dislike'},
@@ -580,9 +581,19 @@ bot.on ('message', message => {
 if (message.content.startsWith("!!invite") === true){
     const exampleEmbed = new Discord.MessageEmbed()
       .setColor('#00a6ff')
-      .setTitle('Bot invite')
+      .setTitle(':love_letter: | Bot invite')
       .addFields(
         { name: 'Invitation link', value: 'https://discord.com/api/oauth2/authorize?client_id=735733544730492958&permissions=8&scope=bot'},
+        { name: 'Info', value: 'You can always contact KimPlayz4LK#1055!'},
+      )
+    message.channel.send(exampleEmbed);
+      }
+if (message.content.startsWith("!!supp") === true){
+    const exampleEmbed = new Discord.MessageEmbed()
+      .setColor('#00a6ff')
+      .setTitle(':passport_control: | Bot support server')
+      .addFields(
+        { name: 'Support server link', value: 'https://discord.gg/P9V3BmZ'},
         { name: 'Info', value: 'You can always contact KimPlayz4LK#1055!'},
       )
     message.channel.send(exampleEmbed);
@@ -678,7 +689,7 @@ if (args[1] == null) {message.channel.send(":x: | Please provide an amout in num
 }
 });
 
-/*
+
 client.on('guildMemberAdd', async member => {
 	const channel = member.guild.channels.cache.find(ch => ch.name === 'public-chat');
 	if (!channel) return;
@@ -714,11 +725,12 @@ client.on('guildMemberAdd', async member => {
 });
 
 client.on('message', message => {
-	if (message.content === '!!:newmember') {
+	if (message.content === '!!:welcomescreen') {
 		client.emit('guildMemberAdd', message.member);
 	}
 });
-*/
+
+
 bot.on('message', message => {
 if (message.content.startsWith("!!thum") === true){
 message.react('👍');
