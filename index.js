@@ -334,9 +334,8 @@ var embed = new Discord.MessageEmbed()
 .addField("You don't have a `claim-box` to open!","You can always get a claim-box by claiming a reward")
 message.channel.send(embed);
 }
-});
+}}
 
-client.on('message', async message => {
 if (command.startsWith("inve") === true || command === "!!inv") {
 var inventory = await keyv.get(message.author.tag+"-inventory");
 if (inventory == null) {await keyv.set(message.author.tag+"-inventory", ",wood");}
@@ -349,7 +348,6 @@ var embed = new Discord.MessageEmbed()
 .addField("Items",args)
 message.channel.send(embed);
 }
-
 if (command.startsWith("use ") === true) {
 var item = command.split(' ');
 var inventory = await keyv.get(message.author.tag+"-inventory");
@@ -372,7 +370,6 @@ var embed = new Discord.MessageEmbed()
 .setDescription("You don't have "+item[1]+" in your inventory!")
 message.channel.send(embed);
 }}
-
 if (command.startsWith("val") === true){
 fs.readFile("value.txt", function(err, buf) {
 var embed = new Discord.MessageEmbed()
@@ -393,20 +390,20 @@ message.channel.send(embed);
 fs.writeFile('value.txt', value, (err) => {if (err) throw err;console.log('ERROR (S):\n' + err);});
 console.log(message.author.tag + " wrote\n" + value + "\nto the file.");
 }
-
 if (command.startsWith('!!fru')===true) {
 message.react('🍎');
 console.log('Reacted with an apple');
 message.react('🍊');
 console.log('Reacted with an orange');
 message.react('🍇');
-console.log('Reacted with grapes');}
-
+console.log('Reacted with grapes');
+}
 if (command.startsWith("cmd") === true){
 const exampleEmbed = new Discord.MessageEmbed()
 .setColor('#00a6ff')
 .setTitle('Commands | Prefix: !!')
 .setThumbnail('https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF')
+.addField("Support server link","https://discord.gg/P9V3BmZ")
 .addFields(
 { name: 'Fun', value: 'fruits, thumbs, random :wrench:, daily, hourly, weekly, use :wrench:, newitem/claimbox :wrench:, react'},
 { name: 'Info & Tools', value: 'serverinfo, myinfo, membercount, find, cmds, help, value, write, invite, time, check/cd, deletemessages/del, inventory/inv, ping, botinfo, play/music, stop'},
@@ -460,29 +457,30 @@ message.channel.send(exampleEmbed);
 )
 .addField("Vote on discordbotlist!","https://discord.com/api/oauth2/authorize?client_id=735733544730492958&permissions=8&scope=bot")
 .addField("Check discordbots!","https://discord.bots.gg/bots/735733544730492958")
-.setFooter('Help', 'https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF')
+.setFooter('Help', "https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF")
 .setTimestamp()
-message.channel.send(exampleEmbed);}
-
+message.channel.send(exampleEmbed);
+}
 if (command.startsWith("invite") === true){
 const exampleEmbed = new Discord.MessageEmbed()
 .setColor('#00a6ff')
 .setTitle(':love_letter: | Bot invite')
 .addFields(
 { name: 'Invitation link', value: 'https://discord.com/api/oauth2/authorize?client_id=735733544730492958&permissions=8&scope=bot'},
-{ name: 'Info', value: 'You can always contact KimPlayz4LK#1055!'},
+{ name: 'Info', value: 'You can always contact KimPlayz4LK#1055!'}
 )
-message.channel.send(exampleEmbed);}
-
+message.channel.send(exampleEmbed);
+}
 if (command.startsWith("supp") === true){
 const exampleEmbed = new Discord.MessageEmbed()
 .setColor('#00a6ff')
 .setTitle(':passport_control: | Bot support server')
 .addFields(
   { name: 'Support server link', value: 'https://discord.gg/P9V3BmZ'},
-  { name: 'Info', value: 'You can always contact KimPlayz4LK#1055!'},
+  { name: 'Info', value: 'You can always contact KimPlayz4LK#1055!'}
 )
-message.channel.send(exampleEmbed);}
+message.channel.send(exampleEmbed);
+}
 if (command.startsWith("serveri") === true){
 var embed = new Discord.MessageEmbed()
 .setColor('#f5cc00')
@@ -542,8 +540,8 @@ await keyv.set(member+"-warns", 1);
 }}
 if (command.startsWith("deletem") === true || command.startsWith("del ") === true){
 var args = command.split(' ');
-if (args[1] == null) {message.channel.send(":x: | Please provide an amout in numbers");} else 
-{if (args[1] < 100 && args[1] > 0){message.channel.bulkDelete(args[1],true);} else {message.channel.send(":x: | Please provide an amout between 1 and 99");}}
+if (args[1] == null) {message.channel.send(":x: | Please provide an amout in numbers");} else {
+if (args[1] < 100 && args[1] > 0){message.channel.bulkDelete(args[1],true);} else {message.channel.send(":x: | Please provide an amout between 1 and 99");}}
 }
 if (command.startsWith("thum") === true){
 message.react('👍');
@@ -562,8 +560,8 @@ message.reply('you reacted with a thumbs down.');
 .catch(collected => {
 message.reply('you reacted with neither a thumbs up, nor a thumbs down.');});
 }
-if (message.content.startsWith('!!play') === true || message.content.startsWith('!!music') === true) {
-var args = message.content.split(' ');
+if (command.startsWith('!!play') === true || command.startsWith('!!music') === true) {
+var args = command.split(' ');
 if (args[1] !== undefined && args[1] !== null){
 if (message.channel.type !== 'text') return;
 const voiceChannel = message.member.voice.channel;
@@ -584,9 +582,8 @@ var embed = new Discord.MessageEmbed()
 .addField("Song URL/link", args[1])
 .addField("Music started by", message.author)
 message.channel.send(embed);
-dispatcher.on('finish', () => voiceChannel.leave());
-});
-}else {
+dispatcher.on('finish', () => voiceChannel.leave());});
+} else {
 var embed = new Discord.MessageEmbed()
 .setColor('#ad0a0a')
 .setTitle(':musical_note: | Invalid arguments')
@@ -599,7 +596,8 @@ var embed = new Discord.MessageEmbed()
 .setColor('#ad0a0a')
 .setTitle(':musical_note: | Error')
 .setDescription("<@"+message.author.id+">You should join the music channel where you want to stop the music")
-message.channel.send(embed);}
+message.channel.send(embed);
+}
 voiceChannel.leave();
 var embed = new Discord.MessageEmbed()
 .setColor('#0ba9d9')
@@ -612,7 +610,8 @@ if (command.startsWith("mute ") === true){
 var args = command.split(' ');
 var role = message.guild.roles.cache.find(role => role.name === 'MUTED');
 var member = message.mentions.members.first();
-member.roles.add(role);}
+member.roles.add(role);
+}
 if (command.startsWith("pref") === true){
 var args = command.split(' ');
 var srvPrefix = await keyv.get(message.guild.id+"-prefix");
@@ -637,9 +636,10 @@ var embed = new Discord.MessageEmbed()
 .setColor('#ad0a0a')
 .setTitle(':x: | Prefix change error')
 .setDescription("Please enter another prefix than comma")
-message.channel.send(embed);
-}}}
-}});
+message.channel.send(embed);}}}
+
+});
+
 bot.on('message', async message => {
 if (message.author.tag === "KimPlayz4LK#1055") {
 if (message.content.startsWith("!!,set") === true){
@@ -651,6 +651,7 @@ var embed = new Discord.MessageEmbed()
 .setDescription("Here's the changed values:")
 .addField(args[1],args[2])
 message.channel.send(embed);}
+
 if (message.content.startsWith("!!,get") === true){
 var args = message.content.split(' ');
 var value = await keyv.get(args[1])
@@ -659,7 +660,9 @@ var embed = new Discord.MessageEmbed()
 .setTitle(':newspaper: | Database')
 .setDescription("Here's the requested values:")
 .addField(args[1],value)
-message.channel.send(embed);}}});
+message.channel.send(embed);
+}}});
+
  kick(bot, {
   prefix:"!!",
   kickcommand: "kick",
@@ -669,6 +672,7 @@ message.channel.send(embed);}}});
   defaultreason: "You were being naughty!",
   kickmsg: "@KICKAUTHOR have been kicked @KICKEDUSER" //@KICKAUTHOR @KICKEDUSER @REASON
 });
+
 ban(bot, {
   prefix:"!!",
   bancommand: "ban",
