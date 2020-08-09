@@ -12,6 +12,7 @@
     "keyv": "^4.0.1",
     "node-gyp": "^7.0.0",
     "node-pre-gyp": "^0.15.0",
+    "opusscript": "0.0.7",
     "sqlite3": "^5.0.0",
     "ytdl-core": "^3.2.0"
   },
