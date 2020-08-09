@@ -1,6 +1,6 @@
 const {welcome, purge, kick, ban, status, say, mute} = require("discord-bot-maker");
 const Discord = require("discord.js");
-//const Canvas = require('canvas');
+const Canvas = require('canvas');
 const Keyv = require('keyv');
 const keyv = new Keyv('sqlite://database.sqlite');
 const bot = new Discord.Client();
@@ -11,7 +11,7 @@ bot.login(process.env.TOKEN);
 client.login(process.env.TOKEN);
 // process.env.TOKEN
 keyv.on('error', err => console.log('Connection Error', err));
-/*
+
  const applyText = (canvas, text) => {
 	const ctx = canvas.getContext('2d');
 	let fontSize = 70;
@@ -22,7 +22,7 @@ keyv.on('error', err => console.log('Connection Error', err));
 
 	return ctx.font;
 }; 
-*/
+
 function between(min, max) {  
   return Math.floor(
     Math.random() * (max - min) + min
@@ -691,7 +691,7 @@ if (args[1] == null) {message.channel.send(":x: | Please provide an amout in num
 }
 });
 
-/*
+
 
 client.on('guildMemberAdd', async member => {
 	const channel = member.guild.channels.cache.find(ch => ch.name === 'public-chat');
@@ -733,7 +733,7 @@ client.on('message', message => {
 	}
 });
 
-*/
+
 
 bot.on('message', message => {
 if (message.content.startsWith("!!thum") === true){
