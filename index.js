@@ -498,7 +498,7 @@ const exampleEmbed = new Discord.MessageEmbed()
 .setColor('#00a6ff')
 .setTitle('Commands | Prefix: !!')
 .setThumbnail('https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF')
-.addField("Support server link","https://discord.gg/P9V3BmZ")
+.addField("Support server link","https://discord.gg/sRMNGb3")
 .addFields(
 { name: 'Fun', value: 'fruits, thumbs, random :wrench:, daily, hourly, weekly, use :wrench:, newitem/claimbox :wrench:, react'},
 { name: 'Info & Tools', value: 'serverinfo, myinfo, membercount, find, cmds, help, value, write, invite, time, check/cd, deletemessages/del, inventory/inv, ping, botinfo, play/music, stop'},
@@ -516,7 +516,7 @@ message.channel.send(exampleEmbed);
 .setTitle('Help | Prefix: !!')
 .setDescription('This help message gives you help about commands')
 .setThumbnail('https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF')
-.addField("Support server link","https://discord.gg/P9V3BmZ")
+.addField("Support server link","https://discord.gg/sRMNGb3")
 .addFields(
 { name: '!!fruits', value: 'Gives you 3 fruit reactions'},
 { name: '!!thumbs', value: 'Gives you a choice between like and dislike'},
