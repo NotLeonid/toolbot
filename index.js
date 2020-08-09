@@ -11,7 +11,7 @@ client.login(process.env.TOKEN);
 // process.env.TOKEN
 keyv.on('error', err => console.log('Connection Error', err));
 const botprefixes = ["!!","@ToolBot#1694","tb!","toolbot!","toolbot"];
-await keyv.set("prefixes",botprefixes);
+keyv.set("prefixes",botprefixes);
 function between(min, max) {  
   return Math.floor(
     Math.random() * (max - min) + min
