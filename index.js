@@ -334,7 +334,7 @@ var embed = new Discord.MessageEmbed()
 .addField("You don't have a `claim-box` to open!","You can always get a claim-box by claiming a reward")
 message.channel.send(embed);
 }
-}});
+});
 
 client.on('message', async message => {
 if (command.startsWith("inve") === true || command === "!!inv") {
