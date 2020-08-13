@@ -19,6 +19,7 @@
     "ffmpeg-static": "^4.2.6",
     "keyv": "^4.0.1",
     "opusscript": "0.0.7",
+    "sqlite": "^4.0.14",
     "sqlite3": "^5.0.0",
     "ytdl-core": "^3.2.0"
   },
