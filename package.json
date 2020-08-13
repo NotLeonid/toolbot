@@ -1,15 +1,14 @@
 {
   "name": "toolbot",
   "version": "1.0.0",
-  "description": "",
-  "engines": {
-    "node": "14.5.x"
-  }
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "devStart": "nodemon index.js"
   },
-
+  "engines": {
+    "node": "14.5.x",
+    "npm": "6.14.x"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -22,5 +21,7 @@
     "opusscript": "0.0.7",
     "sqlite3": "^5.0.0",
     "ytdl-core": "^3.2.0"
-  }
+  },
+  "devDependencies": {},
+  "description": ""
 }
