@@ -7,16 +7,14 @@ const bot = new Discord.Client();
 const client = new Discord.Client();
 const ytdl = require('ytdl-core');
 const fs = require('fs');
+const prefix = "!!";
+const sounds = ["discord-ping","fbi_openup","microwave_earrape","cs_punch_earrape","nyan-cat","bruh","oh-no_troll_laugh","hambuger_earrape","bass-boost_earrape","earrape_bruh","nani_full","squish_that_cat","yeet_earrape","cricket"];
 
 keyv.on('error', err => console.log('Connection Error', err));
-function between(min, max) {
-return Math.floor(
-Math.random() * (max - min) + min
-)
-}
-function randomObject() {
-return(","+weapons[between(0,weapons.length-1)]+","+materials[between(0,materials.length-1)]);
-}
+
+function between(min, max) {return Math.floor(Math.random() * (max - min) + min)}
+function randomObject() {return(","+weapons[between(0,weapons.length-1)]+","+materials[between(0,materials.length-1)]);}
+
 const weapons = ["sword","knife","fork","pistol"];
 const materials = ["rock","wood","steel"];
 require('dotenv').config();
@@ -31,39 +29,33 @@ console.log('Ready to use!');
 console.log(`Logged in as ${client.user.tag}!`);
 console.log(`Bot has started, with ${client.users.cache.size} users, in ${client.channels.cache.size} channels of ${client.guilds.cache.size} guilds.`);
 newStatus();
+setInterval(function(){newStatus();},10000);
 });
 client.on("guildCreate", guild => {
 console.log(`Joined to: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
-newStatus();
+const user = client.users.cache.get('718828195230515291');
+var embed = new Discord.MessageEmbed()
+.setColor('#0ba9d9')
+.setTitle(":inbox_tray: | I've joined a server")
+.setDescription("Someone invited me to a server")
+.addField("Server name ID",guild.name)
+.addField("Server member count",guild.memberCount)
+.addField("Server ID",guild.id)
+user.send(embed);
 });
 client.on("guildDelete", guild => {
 console.log(`Removed from: ${guild.name} (id: ${guild.id})`);
-newStatus();
-});
-client.on('guildMemberAdd', async member => {
-console.log(`New member joined: ${member}`);
-newStatus();
-const user = client.users.cache.get('671458145658470420');
+const user = client.users.cache.get('718828195230515291');
 var embed = new Discord.MessageEmbed()
 .setColor('#0ba9d9')
-.setTitle(':inbox_tray: | New member joined')
-.setDescription("A new member joined a server!")
-.addField("Member ID",member)
-.addField("Server name",member.guild)
+.setTitle(":outbox_tray: | I've leaved a server")
+.setDescription("Someone removed me from a server")
+.addField("Server name ID",guild.name)
+.addField("Server ID",guild.id)
 user.send(embed);
 });
-client.on('guildMemberRemove', async member => {
-console.log(`New member leaved: ${member}`);
-newStatus();
-const user = client.users.cache.get('671458145658470420');
-var embed = new Discord.MessageEmbed()
-.setColor('#0ba9d9')
-.setTitle(':outbox_tray: | Member leaved')
-.setDescription("A member leaved a server!")
-.addField("Member ID",member)
-.addField("Server name",member.guild)
-user.send(embed);
-});
+client.on('guildMemberAdd', async member => {console.log(`New member joined: ${member}`);});
+client.on('guildMemberRemove', async member => {console.log(`New member leaved: ${member}`);});
 
 client.on('message', message => {
 if (message.content.startsWith('!!:emit')===true) {
@@ -498,11 +490,12 @@ const exampleEmbed = new Discord.MessageEmbed()
 .setColor('#00a6ff')
 .setTitle('Commands | Prefix: !!')
 .setThumbnail('https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF')
-.addField("Support server link","https://discord.gg/sRMNGb3")
+.addField("Support server link","https://discord.gg/HC4HGDy")
 .addFields(
-{ name: 'Fun', value: 'fruits, thumbs, random :wrench:, daily, hourly, weekly, use :wrench:, newitem/claimbox :wrench:, react'},
-{ name: 'Info & Tools', value: 'serverinfo, myinfo, membercount, find, cmds, help, value, write, invite, time, check/cd, deletemessages/del, inventory/inv, ping, botinfo, play/music, stop'},
- { name: 'Moderation', value: 'kick, ban, superduperkick (same as kick), mute, warn',},
+{ name: ':game-die: | Fun', value: 'fruits, thumbs, random :wrench:, daily, hourly, weekly, use :wrench:, newitem/claimbox :wrench:, react'},
+{ name: ':tools: | Info & Tools', value: 'serverinfo, myinfo, membercount, find, cmds, help, value, write, invite, time, check/cd, deletemessages/del, inventory/inv, ping, botinfo, play/music, stop'},
+ { name: ':oncoming_police_car: | Moderation', value: 'kick, ban, superduperkick (same as kick), mute, warn',},
+ { name: ":musical_keyboard: | Soundboard (`!!sb `)", value: "Type `!!sb help` for a list of sound effects",}
 // { name: ':tools: Under developement :tools:', value: ""}
 )
 .addField("Vote on discordbotlist!","https://discord.com/api/oauth2/authorize?client_id=735733544730492958&permissions=8&scope=bot")
@@ -516,7 +509,7 @@ message.channel.send(exampleEmbed);
 .setTitle('Help | Prefix: !!')
 .setDescription('This help message gives you help about commands')
 .setThumbnail('https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF')
-.addField("Support server link","https://discord.gg/sRMNGb3")
+.addField("Support server link","https://discord.gg/HC4HGDy")
 .addFields(
 { name: '!!fruits', value: 'Gives you 3 fruit reactions'},
 { name: '!!thumbs', value: 'Gives you a choice between like and dislike'},
@@ -549,6 +542,7 @@ message.channel.send(exampleEmbed);
 { name: '!!warn <mention>', value: 'Warns a member, at 3 warns, the member will be kicked'},
 { name: '!!play / !!music <link>', value: 'Plays music from the selected link from YouTube'},
 { name: '!!stop', value: 'Stops music'},
+{ name: '!!sb <help/sound effect>', value: "Plays sound effects in a voice channel - type `!!sb help` to get help about soundboard"}
 )
 .addField("Vote on discordbotlist!","https://discord.com/api/oauth2/authorize?client_id=735733544730492958&permissions=8&scope=bot")
 .addField("Check discordbots!","https://discord.bots.gg/bots/735733544730492958")
@@ -573,7 +567,7 @@ if (message.content.startsWith("!!supp") === true){
 .setColor('#00a6ff')
 .setTitle(':passport_control: | Bot support server')
 .addFields(
-{ name: 'Support server link', value: 'https://discord.gg/P9V3BmZ'},
+{ name: 'Support server link', value: 'https://discord.gg/HC4HGDy'},
 { name: 'Info', value: 'You can always contact KimPlayz4LK#1055!'},
 )
  message.channel.send(exampleEmbed);
@@ -734,6 +728,42 @@ message.reply('you reacted with neither a thumbs up, nor a thumbs down.');
 });
 }
 });
+
+client.on('message', async message =>{
+if (message.content.startsWith(prefix)===true) {
+var command = message.content.substring(prefix.length,message.content.length);
+var args = command.split(" ");
+
+if (command.startsWith("sb ")===true) {
+message.channel.bulkDelete(1,true);
+if (command.startsWith("sb help")===true) {
+var embed = new Discord.MessageEmbed()
+.setColor('#ad0a0a')
+.setTitle(':musical_note: | Soundboard')
+.setDescription("Here's available sound effects that you can play or prank someone!")
+.addField(":speaker: | Sounds",sounds)
+.addField(":question: | How to use","Simply type `!!sb ` and a sound effect name shown above, and the bot will play the selected sound effect after a short delay, and then leave so that the victim won't reveal the bot.")
+.addField("Example","`!!sb discord-ping` will play a Discord ping sound effect")
+message.channel.send(embed);
+} else {
+const voiceChannel = message.member.voice.channel;
+var soundName = command.substring(3,command.length);
+if (!voiceChannel) {
+var embed = new Discord.MessageEmbed()
+.setColor('#ad0a0a')
+.setTitle(':musical_note: | Error')
+.setDescription("Please, join a voice channel before ")
+message.channel.send(embed);
+} else {
+if (sounds.includes(soundName)===true) {const connection = await voiceChannel.join();setTimeout(function(){var dispatcher=connection.play(soundName+".mp3");dispatcher.on('finish',()=>{voiceChannel.leave();});}, 5000);}
+else {
+var embed = new Discord.MessageEmbed()
+.setColor('#ad0a0a')
+.setTitle(':x: | Error')
+.setDescription("That sound name does not exist, please type >help to get a list of commands.")
+message.channel.send(embed);}
+}}}
+}});
 
 client.on('message', message => {
 if (message.content.startsWith('!!play') === true || message.content.startsWith('!!music') === true) {

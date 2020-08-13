@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "@keyv/sqlite": "^2.0.2",
     "discord-bot-maker": "^0.2.2",
@@ -10,27 +15,8 @@
     "dotenv": "^8.2.0",
     "ffmpeg-static": "^4.2.6",
     "keyv": "^4.0.1",
-    "node-gyp": "^7.0.0",
-    "node-pre-gyp": "^0.15.0",
     "opusscript": "0.0.7",
     "sqlite3": "^5.0.0",
     "ytdl-core": "^3.2.0"
-  },
-  "devDependencies": {},
-  "engines": {
-    "node": "14.x"
-  },
-  "scripts": {
-    "start": "node index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/KimPlayz4LK/toolbot.git"
-  },
-  "author": "KimPlayz4LK#1055",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/KimPlayz4LK/toolbot/issues"
-  },
-  "homepage": "https://github.com/KimPlayz4LK/toolbot#readme"
+  }
 }
