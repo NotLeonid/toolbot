@@ -2,7 +2,7 @@ const {welcome, purge, kick, ban, status, say, mute} = require("discord-bot-make
 const Discord = require("discord.js");
 //const Canvas = require('canvas');
 const Keyv = require('keyv');
-const keyv = new Keyv('sqlite://database.sqlite');
+const keyv = new Keyv("mongodb+srv://discord-currency-bot:Le.Ki2009@cluster0.fhdha.azure.mongodb.net/database?retryWrites=true&w=majority");
 const bot = new Discord.Client();
 const client = new Discord.Client();
 const ytdl = require('ytdl-core');
