@@ -8,7 +8,7 @@ const client = new Discord.Client();
 const ytdl = require('ytdl-core');
 const fs = require('fs');
 const prefix = "!!";
-const sounds = ["discord-ping","fbi_openup","microwave_earrape","cs_punch_earrape","nyan-cat","bruh","oh-no_troll_laugh","hambuger_earrape","bass-boost_earrape","earrape_bruh","nani_full","squish_that_cat","yeet_earrape","cricket"];
+const sounds = ["discord-ping","fbi_openup","microwave_earrape","cs_punch_earrape","nyan-cat","bruh","oh-no_troll_laugh","hamburger_earrape","bass-boost_earrape","earrape_bruh","nani_full","squish_that_cat","yeet_earrape","cricket"];
 
 keyv.on('error', err => console.log('Connection Error', err));
 
@@ -492,7 +492,7 @@ const exampleEmbed = new Discord.MessageEmbed()
 .setThumbnail('https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF')
 .addField("Support server link","https://discord.gg/HC4HGDy")
 .addFields(
-{ name: ':game-die: | Fun', value: 'fruits, thumbs, random :wrench:, daily, hourly, weekly, use :wrench:, newitem/claimbox :wrench:, react'},
+{ name: ':game_die: | Fun', value: 'fruits, thumbs, random :wrench:, daily, hourly, weekly, use :wrench:, newitem/claimbox :wrench:, react'},
 { name: ':tools: | Info & Tools', value: 'serverinfo, myinfo, membercount, find, cmds, help, value, write, invite, time, check/cd, deletemessages/del, inventory/inv, ping, botinfo, play/music, stop'},
  { name: ':oncoming_police_car: | Moderation', value: 'kick, ban, superduperkick (same as kick), mute, warn',},
  { name: ":musical_keyboard: | Soundboard (`!!sb `)", value: "Type `!!sb help` for a list of sound effects",}
@@ -504,7 +504,7 @@ const exampleEmbed = new Discord.MessageEmbed()
 .setFooter('Help', 'https://imageog.flaticon.com/icons/png/512/682/682055.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF');
 message.channel.send(exampleEmbed);
 } else if (message.content.startsWith("!!help") === true){
- const exampleEmbed = new Discord.MessageEmbed()
+var exampleEmbed = new Discord.MessageEmbed()
 .setColor('#00a6ff')
 .setTitle('Help | Prefix: !!')
 .setDescription('This help message gives you help about commands')
@@ -534,7 +534,11 @@ message.channel.send(exampleEmbed);
 { name: '!!check / !!cd', value: 'Checks your cooldowns on reward claiming, and displays how many you have claim-boxes and you claimed rewards'},
 { name: '!!deletemessages / !!del <amount>', value: 'Deletes the selected amount of messages between 1 and 99'},
 { name: '!!inventory / !!inv', value: 'Displays your items in your inventory'},
-{ name: '!!botinfo', value: 'Returns the bot stats'},
+{ name: '!!botinfo', value: 'Returns the bot stats'})
+ message.channel.send(exampleEmbed);
+var exampleEmbed = new Discord.MessageEmbed()
+.setColor('#00a6ff')
+.addFields(
 { name: '!!kick <mention>', value: 'Kicks a member from the server'},
 { name: '!!ban <mention>', value: 'Bans a member from the server'},
 { name: '!!superduperkick <mention>', value: "Same function as 'kick' but sounds more cool"},
@@ -738,7 +742,7 @@ if (command.startsWith("sb ")===true) {
 message.channel.bulkDelete(1,true);
 if (command.startsWith("sb help")===true) {
 var embed = new Discord.MessageEmbed()
-.setColor('#ad0a0a')
+.setColor('#00a6ff')
 .setTitle(':musical_note: | Soundboard')
 .setDescription("Here's available sound effects that you can play or prank someone!")
 .addField(":speaker: | Sounds",sounds)
