@@ -1,6 +1,7 @@
 const {welcome, purge, kick, ban, status, say, mute} = require("discord-bot-maker");
 const Discord = require("discord.js");
 //const Canvas = require('canvas');
+require('dotenv').config();
 const Keyv = require('keyv');
 const keyv = new Keyv(process.env.MONGOKEYV, { collection: 'collection1' });
 
@@ -28,7 +29,6 @@ function randomObject() {return(","+weapons[between(0,weapons.length-1)]+","+mat
 
 const weapons = ["sword","knife","fork","pistol"];
 const materials = ["rock","wood","steel"];
-require('dotenv').config();
 
 function newStatus() {
 if (between(0,10) > 4) {
