@@ -2,7 +2,18 @@ const {welcome, purge, kick, ban, status, say, mute} = require("discord-bot-make
 const Discord = require("discord.js");
 //const Canvas = require('canvas');
 const Keyv = require('keyv');
-const keyv = new Keyv("mongodb+srv://discord-currency-bot:Le.Ki2009@cluster0.fhdha.azure.mongodb.net/database?retryWrites=true&w=majority");
+const keyv = new Keyv(process.env.MONGOKEYV, { collection: 'collection1' });
+
+const MongoClient = require('mongodb').MongoClient;
+const uri = process.env.MONGO;
+const mongoclient = new MongoClient(uri, { useNewUrlParser: true });
+mongoclient.connect(err => {
+  const collection = mongoclient.db("database").collection("collection1");
+  // perform actions on the collection object
+  mongoclient.close();
+});
+
+
 const bot = new Discord.Client();
 const client = new Discord.Client();
 const ytdl = require('ytdl-core');
