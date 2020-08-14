@@ -3,7 +3,9 @@ const Discord = require("discord.js");
 require('dotenv').config();
 const Keyv = require('keyv');
 const keyv = new Keyv(process.env.MONGOKEYV, { collection: 'collection1' });
-
+console.log(precess.env.TOKEN);
+console.log(precess.env.MONGOKEYV);
+console.log(precess.env.MONGO);
 const MongoClient = require('mongodb').MongoClient;
 const uri = process.env.MONGO;
 const mongoclient = new MongoClient(uri, { useNewUrlParser: true });
