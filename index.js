@@ -750,6 +750,27 @@ message.channel.send(embed);
 message.channel.send(embed);
 }
 });
+
+client.on('message',message=>{
+if (message.author.bot===false&&message.author.id!=message.guild.ownerID){
+if (message.guild.owner.roles.cache.some(role=>role.name==="Server is locked down")) {
+message.delete();
+if (message.content.length>1024) {var content=message.content.substring(0,509)+"..."} else {var content=message.content;}
+const embed = new Discord.MessageEmbed()
+.setColor("#ab0000")
+.setTitle(`:lock: | Server is locked-down`)
+.addFields(
+{name:`:question: | How to resolve?`,value:`You can try asking ${message.guild.owner} to unlock the server.\r\nAsk that user to remove the role called *Server is locked down*.`},
+{name:`\u200B`,value:`:information_source: | **Info**`},
+{name:`Reason`,value:"You are not able to send messages because the server is locked down.\r\nThe server is locked down because the server's woner has the role `Server is locked down`.\r\nIf the owner removes that role, everyone will be back able to send messages."},
+{name:`Server name`,value:message.guild.name},
+{name:`Server owner`,value:message.guild.owner},
+{name:`Channel name`,value:message.channel.name},
+{name:`Message content`,value:"`"+content+"`"}
+);
+message.author.send(`||${message.author}||`,[embed]);
+}}});
+
  kick(bot, {
 prefix:"!!",
 kickcommand: "kick",
